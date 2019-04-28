@@ -60,12 +60,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Bullet.cs" />
-    <Compile Include="Assets\Gun.cs" />
-    <Compile Include="Assets\IHandHeld.cs" />
-    <Compile Include="Assets\PlayerControls.cs" />
-    <Compile Include="Assets\UIHandler.cs" />
-    <Compile Include="Assets\UIVariables.cs" />
+    <Compile Include="Assets\MenuCommands.cs" />
+    <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\ExtraLife.cs" />
+    <Compile Include="Assets\Scripts\Gun.cs" />
+    <Compile Include="Assets\Scripts\HeartBeat.cs" />
+    <Compile Include="Assets\Scripts\IHandHeld.cs" />
+    <Compile Include="Assets\Scripts\InventoryHandler.cs" />
+    <Compile Include="Assets\Scripts\IPlayer.cs" />
+    <Compile Include="Assets\Scripts\IUI.cs" />
+    <Compile Include="Assets\Scripts\NearShop.cs" />
+    <Compile Include="Assets\Scripts\PlayerControls.cs" />
+    <Compile Include="Assets\Scripts\ShopHandler.cs" />
+    <Compile Include="Assets\Scripts\ShopItem.cs" />
+    <Compile Include="Assets\Scripts\SimpleAI.cs" />
+    <Compile Include="Assets\Scripts\UIBarUpdate.cs" />
+    <Compile Include="Assets\Scripts\UIHandler.cs" />
+    <Compile Include="Assets\Scripts\UIText.cs" />
+    <Compile Include="Assets\Scripts\UITextUpdater.cs" />
+    <Compile Include="Assets\Scripts\UIVariables.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
