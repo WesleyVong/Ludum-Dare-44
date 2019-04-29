@@ -98,15 +98,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   UIBar: {fileID: 5674889406155201543}
-  drop: {fileID: 7911649047147711071, guid: bf3a8ebd7aef8f049b827b906851f17c, type: 3}
+  drops:
+  - {fileID: 7911649047147711071, guid: bf3a8ebd7aef8f049b827b906851f17c, type: 3}
   target: {fileID: 0}
   onHand: {fileID: 4643453219726019248}
+  moveSpeed: 20
+  jumpStrength: 1000
+  fireDelay: 0.1
   jumpCooldown: 0
   health: 10
+  detectionDistance: 0.5
   followTarget: 1
   autoJump: 0
   avoidCliffs: 1
   attackPlayer: 1
+  melee: 0
 --- !u!50 &78837885836651854
 Rigidbody2D:
   serializedVersion: 4

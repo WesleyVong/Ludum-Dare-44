@@ -26,6 +26,21 @@ public class UIHandler
     public void SetValue(string val)
     {
         value = val;
+        try
+        {
+            if (int.Parse(val) > int.Parse(startValue))
+            {
+                val = startValue;
+            }
+        }
+        catch
+        {
+            if (float.Parse(val) > float.Parse(startValue))
+            {
+                val = startValue;
+            }
+        }
+        
         if (startValue == "")
         {
             SetResetValue(value);

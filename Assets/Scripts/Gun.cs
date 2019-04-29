@@ -7,6 +7,8 @@ public class Gun : MonoBehaviour, IHandHeld
     [Tooltip("Rounds per Second")]
     public float fireRate = 2;
 
+    public float damageMultiplier = 1f;
+
     [Tooltip("Seconds")]
     public float reloadTime = 5;
 
@@ -30,6 +32,7 @@ public class Gun : MonoBehaviour, IHandHeld
         UIVar = GameObject.Find("Scene").GetComponent<UIVariables>();
         remaining = rounds;
         tag = transform.parent.tag;
+        transform.parent = transform.parent.transform;
     }
 
     public void Trigger()
@@ -39,7 +42,16 @@ public class Gun : MonoBehaviour, IHandHeld
             cooldownTimer = (1.0f / fireRate);
             remaining-= 1;
             GameObject bullet = Instantiate(bulletObj, transform.position,transform.rotation,transform);
-            bullet.GetComponent<Bullet>().facingRight = !GetComponent<SpriteRenderer>().flipX;
+            if (bullet.GetComponent<Bullet>() != null)
+            {
+                bullet.GetComponent<Bullet>().facingRight = !GetComponent<SpriteRenderer>().flipX;
+                bullet.GetComponent<Bullet>().damage = bullet.GetComponent<Bullet>().damage * damageMultiplier;
+            }
+            else
+            {
+                bullet.GetComponent<Rocket>().facingRight = !GetComponent<SpriteRenderer>().flipX;
+                bullet.GetComponent<Rocket>().damage = bullet.GetComponent<Rocket>().damage * damageMultiplier;
+            }
             shoot.Play();
         }
         if (cooldownTimer <= 0 && reloading)

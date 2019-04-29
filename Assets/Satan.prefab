@@ -112,7 +112,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4344492211984574721}
-  - {fileID: 7406032050325029191}
+  - {fileID: 755262760391901677}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -178,13 +178,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 0}
   UIBar: {fileID: 4292841032224689625}
-  drop: {fileID: 7911649047147711071, guid: bf3a8ebd7aef8f049b827b906851f17c, type: 3}
+  drops:
+  - {fileID: 8659471937165289660, guid: 47fa461dd18cfd54a8786a682cbee1ba, type: 3}
+  - {fileID: 456229129254659110, guid: 908eeed2dad787841a8ddb6aac02f48e, type: 3}
+  - {fileID: 7911649047147711071, guid: bf3a8ebd7aef8f049b827b906851f17c, type: 3}
+  dropPrefab: {fileID: 7417149897113632416, guid: bc339b916ed901143a45b2546d64511b,
+    type: 3}
   target: {fileID: 0}
-  onHand: {fileID: 2458771007390756872}
-  jumpCooldown: 0
-  health: 10
+  onHand: {fileID: 5666643956175974562}
+  moveSpeed: 20
+  jumpStrength: 1000
+  fireDelay: 0.01
+  jumpCooldown: 1
+  health: 20
+  detectionDistance: 0.9
+  wander: 0
   followTarget: 1
-  autoJump: 0
+  autoJump: 1
   avoidCliffs: 1
   attackPlayer: 1
   melee: 1
@@ -318,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUI: 0
---- !u!1001 &2588763940866574271
+--- !u!1001 &5715519298353809173
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -385,17 +395,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5644286807912073996, guid: 741b5c14a679ecd418fa7b97631f5b2e,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397803634590108973, guid: 741b5c14a679ecd418fa7b97631f5b2e,
+        type: 3}
+      propertyPath: damageMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397803634590108973, guid: 741b5c14a679ecd418fa7b97631f5b2e,
+        type: 3}
+      propertyPath: remaining
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 741b5c14a679ecd418fa7b97631f5b2e, type: 3}
---- !u!1 &2458771007390756872 stripped
+--- !u!1 &5666643956175974562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 140293434391885751, guid: 741b5c14a679ecd418fa7b97631f5b2e,
     type: 3}
-  m_PrefabInstance: {fileID: 2588763940866574271}
+  m_PrefabInstance: {fileID: 5715519298353809173}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7406032050325029191 stripped
+--- !u!4 &755262760391901677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4983974057121236728, guid: 741b5c14a679ecd418fa7b97631f5b2e,
     type: 3}
-  m_PrefabInstance: {fileID: 2588763940866574271}
+  m_PrefabInstance: {fileID: 5715519298353809173}
   m_PrefabAsset: {fileID: 0}

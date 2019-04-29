@@ -10,17 +10,27 @@ public class SimpleAI : MonoBehaviour, IPlayer
     public UIBarUpdate UIBar;
 
     // Bot Settings
-    public GameObject drop;
+    public GameObject[] drops;
+    [Tooltip("Needed for drops like weapons and keys")]
+    public GameObject dropPrefab;
     public GameObject target;
     public GameObject onHand;
+    public float moveSpeed = 20;
+    public float jumpStrength = 1000;
+    [Tooltip("Delay between detecting player and firing")]
+    public float fireDelay = 0.1f;
     public float jumpCooldown;
     public float health = 10;
+    [Tooltip("Make the number larger for larger colliders and smaller for smaller colliders")]
+    public float detectionDistance = 0.5f;
+    public bool wander;
     public bool followTarget;
     public bool autoJump;
     public bool avoidCliffs;
     public bool attackPlayer;
     [Tooltip("Attacks players when they get next to the enemy")]
     public bool melee;
+    public bool trackingWeapon;
 
     // Private Values
     private Rigidbody2D rb;
@@ -28,7 +38,14 @@ public class SimpleAI : MonoBehaviour, IPlayer
     private bool goRight;
     private bool canJump;
     private bool contact;
+
+    // Timers
     private float jumpTimer;
+    private float fireDelayTimer;
+    private float wanderTimer;
+
+    // Offset from transform.position
+    private float lowestPoint;
     private SpriteRenderer sr;
 
     // Target Tracking
@@ -56,6 +73,31 @@ public class SimpleAI : MonoBehaviour, IPlayer
         targetLocation = target.transform.position;
         distanceVector = targetLocation - position;
 
+        if (wander)
+        {
+            if (wanderTimer > 0)
+            {
+                if (avoidCliffs)
+                {
+
+                    if (NextToCliff(goRight) == false)
+                    {
+                        Move();
+                    }
+                }
+                else
+                {
+                    Move();
+                }
+            }
+            else
+            {
+                wanderTimer = Random.Range(0.5f, 2f);
+                goRight = !goRight;
+            }
+
+        }
+
         if (followTarget)
         {
             if (distanceVector.x > 0)
@@ -71,15 +113,12 @@ public class SimpleAI : MonoBehaviour, IPlayer
                 
                 if (NextToCliff(goRight) == false)
                 {
-                    FollowTarget();
-                }
-                else
-                {
+                    Move();
                 }
             }
             else
             {
-                FollowTarget();
+                Move();
             }
         }
 
@@ -97,10 +136,13 @@ public class SimpleAI : MonoBehaviour, IPlayer
 
         if (health <= 0)
         {
-            Instantiate(drop, transform.position,transform.rotation);
-            Destroy(gameObject);
+            Death();
         }
-        
+
+        fireDelayTimer -= Time.deltaTime;
+        jumpTimer -= Time.deltaTime;
+        wanderTimer -= Time.deltaTime;
+        //Debug.Log(fireDelayTimer);
     }
 
     public void Damage(float dmg)
@@ -126,17 +168,17 @@ public class SimpleAI : MonoBehaviour, IPlayer
         contact = false;
     }
 
-    private void FollowTarget()
+    private void Move()
     {
         if (goRight)
         {
             if (contact)
             {
-                rb.AddForce(Vector2.right * 20);
+                rb.AddForce(Vector2.right * moveSpeed);
             }
             else
             {
-                rb.AddForce(Vector2.right * 10);
+                rb.AddForce(Vector2.right * moveSpeed/2);
             }
             if (!facingRight)
             {
@@ -147,11 +189,11 @@ public class SimpleAI : MonoBehaviour, IPlayer
         {
             if (contact)
             {
-                rb.AddForce(Vector2.left * 20);
+                rb.AddForce(Vector2.left * moveSpeed);
             }
             else
             {
-                rb.AddForce(Vector2.left * 10);
+                rb.AddForce(Vector2.left * moveSpeed/2);
             }
             if (facingRight)
             {
@@ -164,13 +206,15 @@ public class SimpleAI : MonoBehaviour, IPlayer
     {
         if (right &&
                 // Block to the bottom right exists
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x + 0.5f, transform.position.y - 0.5f, transform.position.z))) == null)
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance), 0))) == null &&
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance + 1), 0))) == null)
         {
             return true;
         }
         if (!right &&
             // Block to the bottom left exists
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x - 0.5f, transform.position.y - 0.5f, transform.position.z))) == null)
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance), 0))) == null &&
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance + 1), 0))) == null)
         {
             return true;
         }
@@ -186,26 +230,26 @@ public class SimpleAI : MonoBehaviour, IPlayer
     
     private void AutoJump()
     {
-        if (facingRight &&
+        if (facingRight && 
                 // Block to the right exists
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z))) != null &&
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
                 // Block to the right top does not exist
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x + 0.5f, transform.position.y + 1, transform.position.z))) == null)
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y + detectionDistance + 1, 0))) == null)
         {
             if (contact && canJump)
             {
-                Jump(1000);
+                Jump(jumpStrength);
             }
         }
         if (!facingRight &&
             // Block to the left exists
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z))) != null &&
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
             // Block to the left top does not exist
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x - 0.5f, transform.position.y + 1, transform.position.z))) == null)
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y + detectionDistance + 1, 0))) == null)
         {
             if (contact && canJump)
             {
-                Jump(1000);
+                Jump(jumpStrength);
             }
         }
     }
@@ -215,22 +259,43 @@ public class SimpleAI : MonoBehaviour, IPlayer
         RaycastHit2D hit;
         if (facingRight)
         {
-            hit = Physics2D.Raycast(transform.position, Vector2.right);
+            hit = Physics2D.Raycast(GetComponent<Collider2D>().bounds.center, new Vector2(Mathf.Abs(target.transform.position.x - transform.position.x), Mathf.Clamp(target.transform.position.y - transform.position.y, -1f, 1f)).normalized, 20);
         } else
         {
-            hit = Physics2D.Raycast(transform.position, Vector2.left);
+            hit = Physics2D.Raycast(GetComponent<Collider2D>().bounds.center, new Vector2(-Mathf.Abs(target.transform.position.x - transform.position.x), Mathf.Clamp(target.transform.position.y - transform.position.y, -1f, 1f)).normalized, 20);
         }
         if (hit.collider != null)
         {
             if (hit.collider.gameObject == target)
             {
-                var objectsOnHand = onHand.GetComponents<MonoBehaviour>();
-                IHandHeld[] interfaceScripts = (from a in objectsOnHand where a.GetType().GetInterfaces().Any(k => k == typeof(IHandHeld)) select (IHandHeld)a).ToArray();
-                foreach (var iScript in interfaceScripts)
+                if (fireDelayTimer <= 0)
                 {
-                    iScript.Trigger();
+                    var objectsOnHand = onHand.GetComponents<MonoBehaviour>();
+                    IHandHeld[] interfaceScripts = (from a in objectsOnHand where a.GetType().GetInterfaces().Any(k => k == typeof(IHandHeld)) select (IHandHeld)a).ToArray();
+                    foreach (var iScript in interfaceScripts)
+                    {
+                        if (trackingWeapon)
+                        {
+                            if (onHand.GetComponent<TrackPlayer>().aimed)
+                            {
+                                iScript.Trigger();
+                            }
+                        }
+                        else
+                        {
+                            iScript.Trigger();
+                        }
+                    }
                 }
             }
+            else
+            {
+                fireDelayTimer = fireDelay;
+            }
+        }
+        else
+        {
+            fireDelayTimer = fireDelay;
         }
     }
 
@@ -238,7 +303,31 @@ public class SimpleAI : MonoBehaviour, IPlayer
     {
         sr.flipX = !sr.flipX;
         onHand.transform.localPosition = new Vector2(onHand.transform.localPosition.x * -1, onHand.transform.localPosition.y);
-        onHand.GetComponent<SpriteRenderer>().flipX = !onHand.GetComponent<SpriteRenderer>().flipX;
+        if (!trackingWeapon)
+        {
+            onHand.GetComponent<SpriteRenderer>().flipX = !onHand.GetComponent<SpriteRenderer>().flipX;
+        }
         facingRight = !facingRight;
+    }
+
+    public void Death()
+    {
+        foreach (GameObject drop in drops)
+        {
+            if (drop.GetComponent<Rigidbody2D>() != null)
+            {
+                GameObject obj = Instantiate(drop, transform.position, transform.rotation);
+                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+            }
+            else
+            {
+                GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
+                obj.GetComponent<ItemPickup>().item = drop;
+                obj.GetComponent<ItemPickup>().gracePeriod(0.5f);
+                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+            }
+        }
+        
+        Destroy(gameObject);
     }
 }

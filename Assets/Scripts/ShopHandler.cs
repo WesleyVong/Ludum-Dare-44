@@ -7,13 +7,16 @@ public class ShopHandler : MonoBehaviour
 {
     public UIVariables UIVar;
     public GameObject player;
-    public ShopItem[] Items;
+    
     public GameObject[] StoreSlots = new GameObject[10];
 
     public AudioSource audio;
 
-    public void Start()
+    private ShopItem[] Items;
+
+    public void SetItems(ShopItem[] items)
     {
+        Items = items;
         for (int i = 0; i < Items.Length; i++)
         {
             if (Items[i] != null)
@@ -26,16 +29,20 @@ public class ShopHandler : MonoBehaviour
 
     public void Purchase(int itemNum)
     {
-        for (int i = 0; i < player.GetComponent<PlayerControls>().Inventory.Length; i++)
-        {
-            if (player.GetComponent<PlayerControls>().Inventory[i] == null)
+        if (int.Parse(UIVar.UIs[0].GetValue()) - Items[itemNum].itemCost >= 0){
+            for (int i = 0; i < player.GetComponent<PlayerControls>().Inventory.Length; i++)
             {
-                GameObject obj = Instantiate(Items[itemNum].item, player.transform);
-                obj.SetActive(false);
-                player.GetComponent<PlayerControls>().Inventory[i] = obj;
-                UIVar.UIs[0].SetValue((int.Parse(UIVar.UIs[0].GetValue()) - Items[itemNum].itemCost).ToString());
-                audio.Play();
-                break;
+                if (player.GetComponent<PlayerControls>().Inventory[i] == null)
+                {
+                    GameObject obj = Instantiate(Items[itemNum].item, player.transform);
+                    obj.SetActive(false);
+                    player.GetComponent<PlayerControls>().Inventory[i] = obj;
+                    player.GetComponent<PlayerControls>().SwitchSlots();
+
+                    UIVar.UIs[0].SetValue((int.Parse(UIVar.UIs[0].GetValue()) - Items[itemNum].itemCost).ToString());
+                    audio.Play();
+                    break;
+                }
             }
         }
     }

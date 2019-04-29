@@ -8,4 +8,9 @@ public class MenuCommands : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void Restart()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
 }

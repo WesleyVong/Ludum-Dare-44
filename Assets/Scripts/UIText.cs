@@ -16,7 +16,7 @@ public class UIText : MonoBehaviour, IUI
         }
         catch
         {
-            GetComponent<Text>().text = (float.Parse(val)).ToString() + "/" + (float.Parse(UIVariables.UIs[AccessIndex].startValue)).ToString(); ;
+            GetComponent<Text>().text = (float.Parse(val)).ToString() + "/" + (float.Parse(UIVariables.UIs[AccessIndex].startValue)).ToString("0.##"); ;
         }
     }
 }

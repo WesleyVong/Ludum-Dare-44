@@ -6,7 +6,7 @@ public class HeartBeat : MonoBehaviour
 {
     public float magnitude;
     public float cycleTime;
-    public bool isActive;
+    public bool isActive = true;
 
     private Vector2 size;
     private bool isPumping = true;

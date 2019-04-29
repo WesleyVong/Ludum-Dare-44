@@ -13,7 +13,7 @@ public class UITextUpdater : MonoBehaviour, IUI
         }
         catch
         {
-            GetComponent<Text>().text = (float.Parse(val)).ToString();
+            GetComponent<Text>().text = (float.Parse(val)).ToString("0.##");
         }
     }
 }

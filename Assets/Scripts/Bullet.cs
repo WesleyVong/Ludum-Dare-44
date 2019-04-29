@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public float velocity = 50;
     public float damage = 1;
     [Tooltip("Delay before detecting collisions")]
-    public float delay = 0.0001f;
+    public float delay = 0;
     public bool facingRight = true;
 
     private GameObject Shooter;
@@ -20,17 +20,20 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         initialVelocity = transform.parent.parent.GetComponent<Rigidbody2D>().velocity;
         Shooter = transform.parent.parent.gameObject;
+        transform.parent = transform.parent.parent;
     }
 
     private void Update()
     {
         if (facingRight)
         {
-            rb.velocity = new Vector2 (initialVelocity.x + velocity,0);
+            GetComponent<SpriteRenderer>().flipX = false;
+            rb.velocity = transform.right * (initialVelocity.x + velocity);
         }
         if (!facingRight)
         {
-            rb.velocity = new Vector2(initialVelocity.x + -velocity, 0);
+            GetComponent<SpriteRenderer>().flipX = true;
+            rb.velocity = -transform.right * (initialVelocity.x + velocity);
         }
         delay -= Time.deltaTime;
     }

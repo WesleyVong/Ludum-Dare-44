@@ -95,7 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireRate: 5
-  reloadTime: 5
+  damageMultiplier: 1
+  reloadTime: 3
   rounds: 20
   bulletObj: {fileID: 8198157795507159375, guid: 429e715ea0145e74694ae77a4130597e,
     type: 3}

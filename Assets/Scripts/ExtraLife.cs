@@ -6,6 +6,8 @@ public class ExtraLife : MonoBehaviour
 {
     public UIVariables UIVar;
     public AudioSource audio;
+    public int accessedValueIndex = 0;
+    public int change = 1;
 
     private void Start()
     {
@@ -14,11 +16,19 @@ public class ExtraLife : MonoBehaviour
             UIVar = GameObject.Find("Scene").GetComponent<UIVariables>();
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            UIVar.UIs[0].SetValue((int.Parse(UIVar.UIs[0].GetValue()) + 1).ToString());
+            try
+            {
+                UIVar.UIs[accessedValueIndex].SetValue((int.Parse(UIVar.UIs[accessedValueIndex].GetValue()) + change).ToString());
+            }
+            catch
+            {
+                UIVar.UIs[accessedValueIndex].SetValue((float.Parse(UIVar.UIs[accessedValueIndex].GetValue()) + change).ToString());
+            }
             audio.Play();
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;

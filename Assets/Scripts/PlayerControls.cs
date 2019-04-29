@@ -14,9 +14,14 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public KeyCode trigger;
     public KeyCode interact;
     public KeyCode reload;
+    public KeyCode drop;
+    public KeyCode menu;
 
+    public GameObject GamePanel;
     public GameObject ShopPanel;
     public GameObject GameOverPanel;
+    public GameObject MenuPanel;
+    public List<GameObject> inTrigger;
     public bool withinShop;
 
     public Tilemap tilemap;
@@ -31,6 +36,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public GameObject onHand;
     public int selected = 2;
     public GameObject[] Inventory = new GameObject[5];
+    public GameObject dropPrefab;
 
     private float health;
     private UIVariables UIVar;
@@ -39,12 +45,14 @@ public class PlayerControls : MonoBehaviour, IPlayer
     private bool canJump = true;
     // By default is facing right
     private bool facingRight = true;
-    private Vector2 startLocation;
+
+    public Vector2 startLocation;
 
     private float jumpTimer;
 
     private void Start()
     {
+        inTrigger = new List<GameObject>();
         UIVar = GameObject.Find("Scene").GetComponent<UIVariables>();
         startLocation = transform.position;
         rb = GetComponent<Rigidbody2D>();
@@ -55,6 +63,13 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
     void Update()
     {
+        // Access Menu
+        if (Input.GetKeyDown(menu))
+        {
+            MenuPanel.SetActive(!MenuPanel.activeInHierarchy);
+        }
+
+        // Inventory Selection
         if ((Input.GetAxis("Mouse ScrollWheel")) != 0 && 
             (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10)) <= 4 && 
             (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10) >= 0))
@@ -92,7 +107,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
             SwitchSlots();
         }
 
-
+        // Walking
         if (Input.GetKey(right))
         {
             if (autoJump)
@@ -138,7 +153,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
             Jump(1000);
         }
 
-
+        // Trigger Items in Hand
         if (Input.GetKey(trigger))
         {
             if (onHand != null)
@@ -151,6 +166,8 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 }
             }
         }
+
+        // Reloads Gun
         if (Input.GetKeyDown(reload))
         {
             if (onHand != null)
@@ -166,16 +183,36 @@ public class PlayerControls : MonoBehaviour, IPlayer
                     
             }
         }
+
+        // Interacts with object
         if (Input.GetKeyDown(interact))
         {
-            if (withinShop && !ShopPanel.activeInHierarchy)
+            foreach (GameObject obj in inTrigger)
             {
-                ShopPanel.SetActive(true);
+                var objectToInteract = obj.GetComponents<MonoBehaviour>();
+                IInteract[] interfaceScripts = (from a in objectToInteract where a.GetType().GetInterfaces().Any(k => k == typeof(IInteract)) select (IInteract)a).ToArray();
+                foreach (var iScript in interfaceScripts)
+                {
+                    iScript.OnInteract();
+                }
             }
-            else if (ShopPanel.activeInHierarchy)
+        }
+
+        // Drop Object
+        if (Input.GetKeyDown(drop))
+        {
+            // Populates the dropped object with needed Data;
+            GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
+            obj.GetComponent<ItemPickup>().item = Inventory[selected];
+            obj.GetComponent<ItemPickup>().gracePeriod(2);
+            if (obj.GetComponent<Rigidbody2D>() != null)
             {
-                ShopPanel.SetActive(false);
+                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
             }
+
+
+            Inventory[selected] = null;
+            SwitchSlots();
         }
 
         jumpTimer -= Time.deltaTime;
@@ -188,7 +225,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
         }
     }
 
-    private void SwitchSlots()
+    public void SwitchSlots()
     {
         if (onHand != null)
         {
