@@ -28,6 +28,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
     public bool contact = false;
     public bool autoJump = true;
+    public bool invincible;
     public float jumpCooldown = 0.5f;
 
     public AudioSource audio;
@@ -306,7 +307,10 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
     public void Damage(float dmg)
     {
-        UIVar.UIs[2].SetValue((float.Parse(UIVar.UIs[2].GetValue()) - dmg).ToString());
+        if (!invincible)
+        {
+            UIVar.UIs[2].SetValue((float.Parse(UIVar.UIs[2].GetValue()) - dmg).ToString());
+        }
     }
 
     public void Death()
@@ -325,5 +329,20 @@ public class PlayerControls : MonoBehaviour, IPlayer
             Destroy(gameObject);
         }
         
+    }
+
+    public void StartInvincibility(float t)
+    {
+        StartCoroutine(Invincibility(t));
+    }
+
+    IEnumerator Invincibility(float t)
+    {
+        Debug.Log("In Coroutine");
+        invincible = true;
+        GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 100);
+        yield return new WaitForSeconds(t);
+        invincible = false;
+        GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
     }
 }

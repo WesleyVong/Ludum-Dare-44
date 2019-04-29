@@ -993,7 +993,7 @@ PrefabInstance:
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
       propertyPath: Items.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
@@ -1114,6 +1114,28 @@ PrefabInstance:
         type: 3}
       propertyPath: Items.Array.data[4].itemCost
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[5].item
+      value: 
+      objectReference: {fileID: 787617486294623092, guid: 76eae3bfb40b4284ba563cb33df3bfc2,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[5].thumbnail
+      value: 
+      objectReference: {fileID: 21300000, guid: dbaaec999629bca468a1329dfbf49949,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[5].itemName
+      value: Invincibility Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[5].itemCost
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce906ac4baceef49a0e74f88bd99c39, type: 3}
@@ -5598,7 +5620,7 @@ PrefabInstance:
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
       propertyPath: Items.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
@@ -5746,6 +5768,23 @@ PrefabInstance:
       propertyPath: ShopPanel
       value: 
       objectReference: {fileID: 132909514}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[8].item
+      value: 
+      objectReference: {fileID: 787617486294623092, guid: 76eae3bfb40b4284ba563cb33df3bfc2,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[8].thumbnail
+      value: 
+      objectReference: {fileID: 21300000, guid: dbaaec999629bca468a1329dfbf49949,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[8].itemName
+      value: Invinvibility Knife
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce906ac4baceef49a0e74f88bd99c39, type: 3}
 --- !u!1 &1320114976
@@ -22029,6 +22068,7 @@ MonoBehaviour:
   tilemap: {fileID: 1813972383}
   contact: 0
   autoJump: 1
+  invincible: 0
   jumpCooldown: 0.5
   audio: {fileID: 1990458209}
   onHand: {fileID: 0}
@@ -22949,7 +22989,7 @@ PrefabInstance:
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
       propertyPath: Items.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
@@ -23004,6 +23044,28 @@ PrefabInstance:
         type: 3}
       propertyPath: Items.Array.data[1].itemCost
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[2].item
+      value: 
+      objectReference: {fileID: 787617486294623092, guid: 76eae3bfb40b4284ba563cb33df3bfc2,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[2].thumbnail
+      value: 
+      objectReference: {fileID: 21300000, guid: dbaaec999629bca468a1329dfbf49949,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[2].itemName
+      value: Invincibility Knife
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[2].itemCost
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce906ac4baceef49a0e74f88bd99c39, type: 3}
