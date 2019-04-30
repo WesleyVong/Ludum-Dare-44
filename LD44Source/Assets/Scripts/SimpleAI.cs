@@ -21,6 +21,8 @@ public class SimpleAI : MonoBehaviour, IPlayer
     public float fireDelay = 0.1f;
     public float jumpCooldown;
     public float health = 10;
+    [Tooltip("Range of Detection of Player")]
+    public float attackRange = 10;
     [Tooltip("Make the number larger for larger colliders and smaller for smaller colliders")]
     public float detectionDistance = 0.5f;
     public bool wander;
@@ -259,10 +261,10 @@ public class SimpleAI : MonoBehaviour, IPlayer
         RaycastHit2D hit;
         if (facingRight)
         {
-            hit = Physics2D.Raycast(GetComponent<Collider2D>().bounds.center, new Vector2(Mathf.Abs(target.transform.position.x - transform.position.x), Mathf.Clamp(target.transform.position.y - transform.position.y, -1f, 1f)).normalized, 20);
+            hit = Physics2D.Raycast(GetComponent<Collider2D>().bounds.center, new Vector2(Mathf.Abs(target.transform.position.x - transform.position.x), Mathf.Clamp(target.transform.position.y - transform.position.y, -1f, 1f)).normalized, attackRange);
         } else
         {
-            hit = Physics2D.Raycast(GetComponent<Collider2D>().bounds.center, new Vector2(-Mathf.Abs(target.transform.position.x - transform.position.x), Mathf.Clamp(target.transform.position.y - transform.position.y, -1f, 1f)).normalized, 20);
+            hit = Physics2D.Raycast(GetComponent<Collider2D>().bounds.center, new Vector2(-Mathf.Abs(target.transform.position.x - transform.position.x), Mathf.Clamp(target.transform.position.y - transform.position.y, -1f, 1f)).normalized, attackRange);
         }
         if (hit.collider != null)
         {

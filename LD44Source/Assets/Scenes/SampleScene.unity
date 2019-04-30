@@ -993,7 +993,7 @@ PrefabInstance:
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
       propertyPath: Items.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
@@ -1136,6 +1136,28 @@ PrefabInstance:
         type: 3}
       propertyPath: Items.Array.data[5].itemCost
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[6].item
+      value: 
+      objectReference: {fileID: 606195366621610687, guid: dffb229b6e067a942880050777913877,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[6].thumbnail
+      value: 
+      objectReference: {fileID: 21300000, guid: 12e4a078b4a4b9f47bccab3120059037,
+        type: 3}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[6].itemName
+      value: Ray Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[6].itemCost
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ce906ac4baceef49a0e74f88bd99c39, type: 3}
@@ -22429,7 +22451,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b2a12cdddd90fec47bf8049237097f8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

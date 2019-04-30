@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Gun : MonoBehaviour, IHandHeld
 {
@@ -42,15 +43,11 @@ public class Gun : MonoBehaviour, IHandHeld
             cooldownTimer = (1.0f / fireRate);
             remaining-= 1;
             GameObject bullet = Instantiate(bulletObj, transform.position,transform.rotation,transform);
-            if (bullet.GetComponent<Bullet>() != null)
+            var objs = bullet.GetComponents<MonoBehaviour>();
+            IProjectile[] interfaceScripts = (from a in objs where a.GetType().GetInterfaces().Any(k => k == typeof(IProjectile)) select (IProjectile)a).ToArray();
+            foreach (var iScript in interfaceScripts)
             {
-                bullet.GetComponent<Bullet>().facingRight = !GetComponent<SpriteRenderer>().flipX;
-                bullet.GetComponent<Bullet>().damage = bullet.GetComponent<Bullet>().damage * damageMultiplier;
-            }
-            else
-            {
-                bullet.GetComponent<Rocket>().facingRight = !GetComponent<SpriteRenderer>().flipX;
-                bullet.GetComponent<Rocket>().damage = bullet.GetComponent<Rocket>().damage * damageMultiplier;
+                iScript.Direction(!GetComponent<SpriteRenderer>().flipX, damageMultiplier);
             }
             shoot.Play();
         }

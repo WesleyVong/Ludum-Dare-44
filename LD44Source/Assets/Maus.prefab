@@ -111,13 +111,14 @@ MonoBehaviour:
   fireDelay: 0.01
   jumpCooldown: 1
   health: 50
+  attackRange: 10
   detectionDistance: 0.9
   wander: 0
   followTarget: 1
   autoJump: 0
   avoidCliffs: 1
   attackPlayer: 1
-  melee: 0
+  melee: 1
   trackingWeapon: 1
 --- !u!50 &109700475213861705
 Rigidbody2D:

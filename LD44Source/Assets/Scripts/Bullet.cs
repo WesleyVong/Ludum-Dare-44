@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IProjectile
 {
     public float velocity = 50;
     public float damage = 1;
-    [Tooltip("Delay before detecting collisions")]
-    public float delay = 0;
+    [Tooltip("Timer until self-destruction")]
+    public float lifeTime = 1f;
     public bool facingRight = true;
 
     private GameObject Shooter;
@@ -35,27 +35,33 @@ public class Bullet : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
             rb.velocity = -transform.right * (initialVelocity.x + velocity);
         }
-        delay -= Time.deltaTime;
+        lifeTime -= Time.deltaTime;
+        if (lifeTime <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (delay <= 0)
+        if (col.tag == "Player" || col.tag == "Enemy" || col.tag == "Ground")
         {
-            if (col.tag == "Player" || col.tag == "Enemy" || col.tag == "Ground")
+            if (col.gameObject != Shooter)
             {
-                if (col.gameObject != Shooter)
+                var objectScripts = col.GetComponents<MonoBehaviour>();
+                IPlayer[] interfaceScripts = (from a in objectScripts where a.GetType().GetInterfaces().Any(k => k == typeof(IPlayer)) select (IPlayer)a).ToArray();
+                foreach (var iScript in interfaceScripts)
                 {
-                    var objectScripts = col.GetComponents<MonoBehaviour>();
-                    IPlayer[] interfaceScripts = (from a in objectScripts where a.GetType().GetInterfaces().Any(k => k == typeof(IPlayer)) select (IPlayer)a).ToArray();
-                    foreach (var iScript in interfaceScripts)
-                    {
-                        iScript.Damage(damage);
-                    }
-                    Destroy(gameObject);
+                    iScript.Damage(damage);
                 }
+                Destroy(gameObject);
             }
-
         }
+    }
+
+    public void Direction(bool dir, float dmg)
+    {
+        facingRight = dir;
+        damage *= dmg;
     }
 }

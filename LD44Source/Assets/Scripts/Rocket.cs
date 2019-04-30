@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Rocket : MonoBehaviour
+public class Rocket : MonoBehaviour, IProjectile
 {
     public float velocity = 25;
     public float damage = 1;
@@ -56,7 +56,7 @@ public class Rocket : MonoBehaviour
                         IPlayer[] interfaceScripts = (from a in objectScripts where a.GetType().GetInterfaces().Any(k => k == typeof(IPlayer)) select (IPlayer)a).ToArray();
                         foreach (var iScript in interfaceScripts)
                         {
-                            iScript.Damage(damage);
+                            iScript.Damage(damage - ((obj.transform.position - transform.position).magnitude / radius));
                         }
                     }
                 }
@@ -69,5 +69,11 @@ public class Rocket : MonoBehaviour
 
             }
         }
+    }
+
+    public void Direction(bool dir, float dmg)
+    {
+        facingRight = dir;
+        damage *= dmg;
     }
 }
