@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UITextUpdater : MonoBehaviour, IUI
 {
+
+    private string max;
     public void UpdateUI(string val)
     {
         try
@@ -13,7 +15,14 @@ public class UITextUpdater : MonoBehaviour, IUI
         }
         catch
         {
-            GetComponent<Text>().text = (float.Parse(val)).ToString("0.##");
+            GetComponent<Text>().text = (float.Parse(val)).ToString("F2");
         }
+
+
+    }
+
+    public void UpdateMax(string val)
+    {
+        max = val;
     }
 }

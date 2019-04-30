@@ -42,16 +42,20 @@ public class Bullet : MonoBehaviour
     {
         if (delay <= 0)
         {
-            if (col.gameObject != Shooter)
+            if (col.tag == "Player" || col.tag == "Enemy" || col.tag == "Ground")
             {
-                var objectScripts = col.GetComponents<MonoBehaviour>();
-                IPlayer[] interfaceScripts = (from a in objectScripts where a.GetType().GetInterfaces().Any(k => k == typeof(IPlayer)) select (IPlayer)a).ToArray();
-                foreach (var iScript in interfaceScripts)
+                if (col.gameObject != Shooter)
                 {
-                    iScript.Damage(damage);
+                    var objectScripts = col.GetComponents<MonoBehaviour>();
+                    IPlayer[] interfaceScripts = (from a in objectScripts where a.GetType().GetInterfaces().Any(k => k == typeof(IPlayer)) select (IPlayer)a).ToArray();
+                    foreach (var iScript in interfaceScripts)
+                    {
+                        iScript.Damage(damage);
+                    }
+                    Destroy(gameObject);
                 }
-                Destroy(gameObject);
             }
+
         }
     }
 }

@@ -8,6 +8,7 @@ public class UIBarUpdate : MonoBehaviour, IUI
     public bool isUI = true;
 
     private float max;
+    private float overload;
 
     // Default min is 0
     private float min = 0;
@@ -38,11 +39,24 @@ public class UIBarUpdate : MonoBehaviour, IUI
     {
         value = float.Parse(val);
         // Maximum will be any value that exceeds it
-        if (value > max)
+        if (max == 0)
         {
             max = value;
         }
-        xScale = value / (max - min);
+        if (value - max > 0)
+        {
+            overload = value - max;
+        }
+        else
+        {
+            overload = 0;
+        }
+        xScale = value / ((max + overload) - min);
+        if (isUI)
+        {
+            Debug.Log(overload + " " + max + " " + min);
+        }
+
         if (isUI)
         {
             GetComponent<RectTransform>().localScale = new Vector3(xScale, 1, 1);
@@ -56,14 +70,21 @@ public class UIBarUpdate : MonoBehaviour, IUI
 
     }
 
-    public void setMinMax(float mn, float mx)
+    public void UpdateMax(string val)
     {
-        min = mn;
-        max = mx;
+        string tmp = val;
+        try
+        {
+            max = int.Parse(tmp);
+        }
+        catch
+        {
+            max = float.Parse(tmp);
+        }
     }
 
-    public (float,float) getMinMax()
+    public float GetMax()
     {
-        return (min,max);
+        return (max);
     }
 }

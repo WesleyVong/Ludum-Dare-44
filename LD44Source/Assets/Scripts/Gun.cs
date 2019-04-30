@@ -66,6 +66,7 @@ public class Gun : MonoBehaviour, IHandHeld
     {
         reloadTimer = reloadTime;
         reloading = true;
+        UIVar.UIs[1].SetValue("Reloading");
     }
 
     void Update()
@@ -81,9 +82,10 @@ public class Gun : MonoBehaviour, IHandHeld
             remaining = rounds;
             reloading = false;
         }
-        if (tag == "Player")
+        if (tag == "Player" && !reloading)
         {
             UIVar.UIs[1].SetValue(remaining.ToString());
+            UIVar.UIs[1].SetResetValue(rounds.ToString());
         }
     }
 }

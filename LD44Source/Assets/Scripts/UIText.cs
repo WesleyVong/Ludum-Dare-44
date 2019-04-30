@@ -5,18 +5,30 @@ using UnityEngine.UI;
 
 public class UIText : MonoBehaviour, IUI
 {
-    public int AccessIndex;
-    public UIVariables UIVariables;
+
+    private string max;
 
     public void UpdateUI(string val)
     {
         try
         {
-            GetComponent<Text>().text = (int.Parse(val)).ToString() + " / " + (int.Parse(UIVariables.UIs[AccessIndex].startValue)).ToString();
+            GetComponent<Text>().text = (int.Parse(val)).ToString() + " / " + max;
         }
         catch
         {
-            GetComponent<Text>().text = (float.Parse(val)).ToString() + "/" + (float.Parse(UIVariables.UIs[AccessIndex].startValue)).ToString("0.##"); ;
+            try
+            {
+                GetComponent<Text>().text = (float.Parse(val)).ToString("F2") + "/" + max; ;
+            }
+            catch
+            {
+                GetComponent<Text>().text = val;
+            }
+
         }
+    }
+    public void UpdateMax(string val)
+    {
+        max = val;
     }
 }

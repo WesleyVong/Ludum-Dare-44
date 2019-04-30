@@ -8,14 +8,18 @@ using UnityEngine.UI;
 public class PlayerControls : MonoBehaviour, IPlayer
 {
     // Controls
-    public KeyCode right;
-    public KeyCode left;
-    public KeyCode up;
-    public KeyCode trigger;
-    public KeyCode interact;
-    public KeyCode reload;
-    public KeyCode drop;
-    public KeyCode menu;
+    public KeyCode right = KeyCode.D;
+    public KeyCode left = KeyCode.A;
+    public KeyCode up = KeyCode.W;
+    public KeyCode trigger = KeyCode.Space;
+    public KeyCode interact = KeyCode.E;
+    public KeyCode reload = KeyCode.R;
+    public KeyCode drop = KeyCode.Q;
+    public KeyCode menu = KeyCode.Escape;
+
+    public KeyCode rightAlt = KeyCode.RightArrow;
+    public KeyCode leftAlt = KeyCode.LeftArrow;
+    public KeyCode upAlt = KeyCode.UpArrow;
 
     public GameObject GamePanel;
     public GameObject ShopPanel;
@@ -109,7 +113,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
         }
 
         // Walking
-        if (Input.GetKey(right))
+        if (Input.GetKey(right) || Input.GetKey(rightAlt))
         {
             if (autoJump)
             {
@@ -128,7 +132,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 flip();
             }
         }
-        if (Input.GetKey(left))
+        if (Input.GetKey(left) || Input.GetKey(leftAlt))
         {
             if (autoJump)
             {
@@ -149,7 +153,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
         }
 
         // Jump
-        if (Input.GetKey(up) && contact && canJump)
+        if ((Input.GetKey(up) || Input.GetKey(upAlt)) && contact && canJump)
         {
             Jump(1000);
         }
@@ -344,5 +348,10 @@ public class PlayerControls : MonoBehaviour, IPlayer
         yield return new WaitForSeconds(t);
         invincible = false;
         GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+    }
+
+    public void ToggleAutoJump()
+    {
+        autoJump = !autoJump;
     }
 }
