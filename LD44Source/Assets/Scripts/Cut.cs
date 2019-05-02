@@ -23,7 +23,7 @@ public class Cut : MonoBehaviour, IHandHeld
 
     public void Trigger()
     {
-        if (!player.GetComponent<PlayerControls>().invincible)
+        if (!player.GetComponent<PlayerControls>().invincible && int.Parse(UIVars.UIs[0].GetValue()) - 1 >= 0)
         {
             try
             {

@@ -19,8 +19,9 @@ public class ShopLocal : MonoBehaviour, IInteract
         {
             collision.GetComponent<PlayerControls>().inTrigger.Add(this.gameObject);
             withinTrigger = true;
+            shopUI.SetItems(Items);
         }
-        shopUI.SetItems(Items);
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -29,11 +30,12 @@ public class ShopLocal : MonoBehaviour, IInteract
         {
             collision.GetComponent<PlayerControls>().inTrigger.Remove(this.gameObject);
             withinTrigger = false;
+            if (ShopPanel.activeInHierarchy)
+            {
+                ShopPanel.SetActive(false);
+            }
         }
-        if (ShopPanel.activeInHierarchy)
-        {
-            ShopPanel.SetActive(false);
-        }
+
     }
 
     public void OnInteract()

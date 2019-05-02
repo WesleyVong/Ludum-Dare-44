@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class SimpleAI : MonoBehaviour, IPlayer
 {
-    public Tilemap tilemap;
+    private Tilemap tilemap;
     public UIBarUpdate UIBar;
 
     // Bot Settings
@@ -33,6 +33,8 @@ public class SimpleAI : MonoBehaviour, IPlayer
     [Tooltip("Attacks players when they get next to the enemy")]
     public bool melee;
     public bool trackingWeapon;
+
+    private bool isPaused;
 
     // Private Values
     private Rigidbody2D rb;
@@ -71,14 +73,47 @@ public class SimpleAI : MonoBehaviour, IPlayer
 
     private void Update()
     {
-        position = transform.position;
-        targetLocation = target.transform.position;
-        distanceVector = targetLocation - position;
-
-        if (wander)
+        if (!isPaused)
         {
-            if (wanderTimer > 0)
+            position = transform.position;
+            targetLocation = target.transform.position;
+            distanceVector = targetLocation - position;
+
+            if (wander)
             {
+                if (wanderTimer > 0)
+                {
+                    if (avoidCliffs)
+                    {
+
+                        if (NextToCliff(goRight) == false)
+                        {
+                            Move();
+                        }
+                    }
+                    else
+                    {
+                        Move();
+                    }
+                }
+                else
+                {
+                    wanderTimer = Random.Range(0.5f, 2f);
+                    goRight = !goRight;
+                }
+
+            }
+
+            if (followTarget)
+            {
+                if (distanceVector.x > 0)
+                {
+                    goRight = true;
+                }
+                else
+                {
+                    goRight = false;
+                }
                 if (avoidCliffs)
                 {
 
@@ -92,59 +127,29 @@ public class SimpleAI : MonoBehaviour, IPlayer
                     Move();
                 }
             }
-            else
+
+            if (attackPlayer)
             {
-                wanderTimer = Random.Range(0.5f, 2f);
-                goRight = !goRight;
+                AttackPlayer();
             }
 
-        }
-
-        if (followTarget)
-        {
-            if (distanceVector.x > 0)
+            if (autoJump)
             {
-                goRight = true;
+                AutoJump();
             }
-            else
+
+            UIBar.UpdateUI(health.ToString());
+
+            if (health <= 0)
             {
-                goRight = false;
+                Death();
             }
-            if (avoidCliffs)
-            {
-                
-                if (NextToCliff(goRight) == false)
-                {
-                    Move();
-                }
-            }
-            else
-            {
-                Move();
-            }
+
+            fireDelayTimer -= Time.deltaTime;
+            jumpTimer -= Time.deltaTime;
+            wanderTimer -= Time.deltaTime;
         }
 
-        if (attackPlayer)
-        {
-            AttackPlayer();
-        }
-
-        if (autoJump)
-        {
-            AutoJump();
-        }
-
-        UIBar.UpdateUI(health.ToString());
-
-        if (health <= 0)
-        {
-            Death();
-        }
-
-        fireDelayTimer -= Time.deltaTime;
-        jumpTimer -= Time.deltaTime;
-        wanderTimer -= Time.deltaTime;
-        //Debug.Log(fireDelayTimer);
     }
 
     public void Damage(float dmg)
@@ -331,5 +336,10 @@ public class SimpleAI : MonoBehaviour, IPlayer
         }
         
         Destroy(gameObject);
+    }
+
+    public void Pause()
+    {
+        isPaused = !isPaused;
     }
 }

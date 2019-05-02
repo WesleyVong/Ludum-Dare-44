@@ -43,6 +43,8 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public GameObject[] Inventory = new GameObject[5];
     public GameObject dropPrefab;
 
+    public bool isPaused;
+
     private float health;
     private UIVariables UIVar;
     private Rigidbody2D rb;
@@ -64,6 +66,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
         // Default without flip is right
         sr = GetComponent<SpriteRenderer>();
         SwitchSlots();
+        Pause();
     }
 
     void Update()
@@ -71,162 +74,172 @@ public class PlayerControls : MonoBehaviour, IPlayer
         // Access Menu
         if (Input.GetKeyDown(menu))
         {
-            MenuPanel.SetActive(!MenuPanel.activeInHierarchy);
-        }
-
-        // Inventory Selection
-        if ((Input.GetAxis("Mouse ScrollWheel")) != 0 && 
-            (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10)) <= 4 && 
-            (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10) >= 0))
-        {
-            selected += (int)(Input.GetAxis("Mouse ScrollWheel") * 10);
-            SwitchSlots();
-        }
-        if (Input.GetKey("1"))
-        {
-            selected = 0;
-            SwitchSlots();
-        }
-
-        if (Input.GetKey("2"))
-        {
-            selected = 1;
-            SwitchSlots();
-        }
-
-        if (Input.GetKey("3"))
-        {
-            selected = 2;
-            SwitchSlots();
-        }
-
-        if (Input.GetKey("4"))
-        {
-            selected = 3;
-            SwitchSlots();
-        }
-
-        if (Input.GetKey("5"))
-        {
-            selected = 4;
-            SwitchSlots();
-        }
-
-        // Walking
-        if (Input.GetKey(right) || Input.GetKey(rightAlt))
-        {
-            if (autoJump)
+            if (ShopPanel.activeInHierarchy)
             {
-                AutoJump();
-            }
-            if (contact)
-            {
-                rb.AddForce(Vector2.right * 40);
+                ShopPanel.SetActive(false);
             }
             else
             {
-                rb.AddForce(Vector2.right * 20);
-            }
-            if (!facingRight)
-            {
-                flip();
-            }
-        }
-        if (Input.GetKey(left) || Input.GetKey(leftAlt))
-        {
-            if (autoJump)
-            {
-                AutoJump();
-            }
-            if (contact)
-            {
-                rb.AddForce(Vector2.left * 40);
-            }
-            else
-            {
-                rb.AddForce(Vector2.left * 20);
-            }
-            if (facingRight)
-            {
-                flip();
+                Pause();
             }
         }
 
-        // Jump
-        if ((Input.GetKey(up) || Input.GetKey(upAlt)) && contact && canJump)
+        if (!isPaused)
         {
-            Jump(1000);
-        }
-
-        // Trigger Items in Hand
-        if (Input.GetKey(trigger))
-        {
-            if (onHand != null)
+            // Inventory Selection
+            if ((Input.GetAxis("Mouse ScrollWheel")) != 0 &&
+                (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10)) <= 4 &&
+                (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10) >= 0))
             {
-                var objectsOnHand = onHand.GetComponents<MonoBehaviour>();
-                IHandHeld[] interfaceScripts = (from a in objectsOnHand where a.GetType().GetInterfaces().Any(k => k == typeof(IHandHeld)) select (IHandHeld)a).ToArray();
-                foreach (var iScript in interfaceScripts)
+                selected += (int)(Input.GetAxis("Mouse ScrollWheel") * 10);
+                SwitchSlots();
+            }
+            if (Input.GetKey("1"))
+            {
+                selected = 0;
+                SwitchSlots();
+            }
+
+            if (Input.GetKey("2"))
+            {
+                selected = 1;
+                SwitchSlots();
+            }
+
+            if (Input.GetKey("3"))
+            {
+                selected = 2;
+                SwitchSlots();
+            }
+
+            if (Input.GetKey("4"))
+            {
+                selected = 3;
+                SwitchSlots();
+            }
+
+            if (Input.GetKey("5"))
+            {
+                selected = 4;
+                SwitchSlots();
+            }
+
+            // Walking
+            if (Input.GetKey(right) || Input.GetKey(rightAlt))
+            {
+                if (autoJump)
                 {
-                    iScript.Trigger();
+                    AutoJump();
+                }
+                if (contact)
+                {
+                    rb.AddForce(Vector2.right * 40);
+                }
+                else
+                {
+                    rb.AddForce(Vector2.right * 20);
+                }
+                if (!facingRight)
+                {
+                    flip();
                 }
             }
-        }
-
-        // Reloads Gun
-        if (Input.GetKeyDown(reload))
-        {
-            if (onHand != null)
+            if (Input.GetKey(left) || Input.GetKey(leftAlt))
             {
-                try
+                if (autoJump)
                 {
-                    onHand.GetComponent<Gun>().Reload();
+                    AutoJump();
                 }
-                catch
+                if (contact)
                 {
-
+                    rb.AddForce(Vector2.left * 40);
                 }
-                    
-            }
-        }
-
-        // Interacts with object
-        if (Input.GetKeyDown(interact))
-        {
-            foreach (GameObject obj in inTrigger)
-            {
-                var objectToInteract = obj.GetComponents<MonoBehaviour>();
-                IInteract[] interfaceScripts = (from a in objectToInteract where a.GetType().GetInterfaces().Any(k => k == typeof(IInteract)) select (IInteract)a).ToArray();
-                foreach (var iScript in interfaceScripts)
+                else
                 {
-                    iScript.OnInteract();
+                    rb.AddForce(Vector2.left * 20);
+                }
+                if (facingRight)
+                {
+                    flip();
                 }
             }
-        }
 
-        // Drop Object
-        if (Input.GetKeyDown(drop))
-        {
-            // Populates the dropped object with needed Data;
-            GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
-            obj.GetComponent<ItemPickup>().item = Inventory[selected];
-            obj.GetComponent<ItemPickup>().gracePeriod(2);
-            if (obj.GetComponent<Rigidbody2D>() != null)
+            // Jump
+            if ((Input.GetKey(up) || Input.GetKey(upAlt)) && contact && canJump)
             {
-                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+                Jump(1000);
             }
 
+            // Trigger Items in Hand
+            if (Input.GetKey(trigger))
+            {
+                if (onHand != null)
+                {
+                    var objectsOnHand = onHand.GetComponents<MonoBehaviour>();
+                    IHandHeld[] interfaceScripts = (from a in objectsOnHand where a.GetType().GetInterfaces().Any(k => k == typeof(IHandHeld)) select (IHandHeld)a).ToArray();
+                    foreach (var iScript in interfaceScripts)
+                    {
+                        iScript.Trigger();
+                    }
+                }
+            }
 
-            Inventory[selected] = null;
-            SwitchSlots();
-        }
+            // Reloads Gun
+            if (Input.GetKeyDown(reload))
+            {
+                if (onHand != null)
+                {
+                    try
+                    {
+                        onHand.GetComponent<Gun>().Reload();
+                    }
+                    catch
+                    {
 
-        jumpTimer -= Time.deltaTime;
+                    }
 
-        // Death Conditions
-        if (transform.position.y < -20f ||
-            float.Parse(UIVar.UIs[2].GetValue()) <= 0)
-        {
-            Death();
+                }
+            }
+
+            // Interacts with object
+            if (Input.GetKeyDown(interact))
+            {
+                foreach (GameObject obj in inTrigger)
+                {
+                    var objectToInteract = obj.GetComponents<MonoBehaviour>();
+                    IInteract[] interfaceScripts = (from a in objectToInteract where a.GetType().GetInterfaces().Any(k => k == typeof(IInteract)) select (IInteract)a).ToArray();
+                    foreach (var iScript in interfaceScripts)
+                    {
+                        iScript.OnInteract();
+                    }
+                }
+            }
+
+            // Drop Object
+            if (Input.GetKeyDown(drop))
+            {
+                // Populates the dropped object with needed Data;
+                GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
+                obj.GetComponent<ItemPickup>().item = Inventory[selected];
+                obj.GetComponent<ItemPickup>().gracePeriod(2);
+                if (obj.GetComponent<Rigidbody2D>() != null)
+                {
+                    obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+                }
+
+
+                Inventory[selected] = null;
+                SwitchSlots();
+            }
+
+            jumpTimer -= Time.deltaTime;
+
+            // Death Conditions
+            if (transform.position.y < -20f ||
+                float.Parse(UIVar.UIs[2].GetValue()) <= 0)
+            {
+                Death();
+            }
         }
     }
 
@@ -287,24 +300,25 @@ public class PlayerControls : MonoBehaviour, IPlayer
     private void AutoJump()
     {
         if (facingRight &&
-            // Block to the right exists
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z))) != null &&
-            // Block to the right top does not exist
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x + 0.5f, transform.position.y + 1, transform.position.z))) == null)
+                // Block to the right exists
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + 0.5f, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
+                // Block to the right top does not exist
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + 0.5f, GetComponent<Collider2D>().bounds.min.y + 0.5f + 1, 0))) == null)
         {
             if (contact && canJump)
             {
-                Jump(750);
+                Jump(760);
             }
         }
         if (!facingRight &&
             // Block to the left exists
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x - 0.5f, transform.position.y, transform.position.z))) != null &&             // Block to the left top does not exist
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(transform.position.x - 0.5f, transform.position.y + 1, transform.position.z))) == null)
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - 0.5f, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
+            // Block to the left top does not exist
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - 0.5f, GetComponent<Collider2D>().bounds.min.y + 0.5f + 1, 0))) == null)
         {
             if (contact && canJump)
             {
-                Jump(750);
+                Jump(760);
             }
         }
     }
@@ -353,5 +367,23 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public void ToggleAutoJump()
     {
         autoJump = !autoJump;
+    }
+
+    public void Pause()
+    {
+        MenuPanel.SetActive(!MenuPanel.activeInHierarchy);
+        isPaused = !isPaused;
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            obj.GetComponent<SimpleAI>().Pause();
+        }
     }
 }

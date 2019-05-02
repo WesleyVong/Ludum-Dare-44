@@ -13,4 +13,16 @@ public class MenuCommands : MonoBehaviour
     {
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    public void ToggleMusic()
+    {
+        if (GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().Stop();
+        }
+        else
+        {
+            GetComponent<AudioSource>().Play();
+        }
+    }
 }

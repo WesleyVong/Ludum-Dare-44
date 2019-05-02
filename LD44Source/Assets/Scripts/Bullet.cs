@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour, IProjectile
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        initialVelocity = transform.parent.parent.GetComponent<Rigidbody2D>().velocity;
+        initialVelocity = new Vector2(Mathf.Abs(transform.parent.parent.GetComponent<Rigidbody2D>().velocity.x), Mathf.Abs(transform.parent.parent.GetComponent<Rigidbody2D>().velocity.x));
         Shooter = transform.parent.parent.gameObject;
         transform.parent = transform.parent.parent;
     }

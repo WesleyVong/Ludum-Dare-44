@@ -22,9 +22,19 @@ public class ShopHandler : MonoBehaviour
             if (Items[i] != null)
             {
                 StoreSlots[i].GetComponentInChildren<Text>().text = Items[i].ToString();
-                StoreSlots[i].GetComponentsInChildren<Image>()[1].sprite = Items[i].thumbnail;
+                StoreSlots[i].GetComponentsInChildren<Image>()[1].sprite = Items[i].getThumbnail();
             }
         }
+    }
+
+    public ShopItem GetItem(int index)
+    {
+        return Items[index];
+    }
+
+    public ShopItem[] GetItems()
+    {
+        return Items;
     }
 
     public void Purchase(int itemNum)
