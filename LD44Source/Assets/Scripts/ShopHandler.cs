@@ -6,13 +6,21 @@ using UnityEngine.UI;
 public class ShopHandler : MonoBehaviour
 {
     public UIVariables UIVar;
-    public GameObject player;
+    private GameObject player;
     
     public GameObject[] StoreSlots = new GameObject[10];
 
     public AudioSource audio;
 
     private ShopItem[] Items;
+
+    private void Start()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
 
     public void SetItems(ShopItem[] items)
     {

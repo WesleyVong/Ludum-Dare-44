@@ -9,8 +9,15 @@ public class InventoryHandler : MonoBehaviour
     private GameObject[] items = new GameObject[5];
     public GameObject[] slots = new GameObject[5];
     public GameObject selector;
-    public GameObject player;
+    private GameObject player;
 
+    private void Start()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
 
     private void Update()
     {

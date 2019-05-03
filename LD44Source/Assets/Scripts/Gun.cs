@@ -14,6 +14,7 @@ public class Gun : MonoBehaviour, IHandHeld
     public float reloadTime = 5;
 
     public int rounds = 6;
+
     public GameObject bulletObj;
 
     public int remaining;

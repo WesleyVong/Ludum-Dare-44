@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour, IProjectile
     [Tooltip("Timer until self-destruction")]
     public float lifeTime = 1f;
     public bool facingRight = true;
+    [Tooltip("Enemies that can be hit before the bullet gets destroyed")]
+    public int hittableEnemies = 1;
 
     private GameObject Shooter;
     private Rigidbody2D rb;
@@ -54,7 +56,12 @@ public class Bullet : MonoBehaviour, IProjectile
                 {
                     iScript.Damage(damage);
                 }
-                Destroy(gameObject);
+                if (hittableEnemies - 1 <= 0 || col.tag == "Ground") 
+                {
+                    Destroy(gameObject);
+                }
+                hittableEnemies -= 1;
+                damage /= 2;
             }
         }
     }
