@@ -1,11 +1,11 @@
 ﻿<Properties StartupConfiguration="{6C663FCC-5BD4-8108-2CA5-F0502F617E65}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Cut.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UIHandler.cs">
     <Files>
       <File FileName="Assets/Scripts/UIBarUpdate.cs" Line="50" Column="13" />
-      <File FileName="Assets/Scripts/UIHandler.cs" Line="59" Column="47" />
+      <File FileName="Assets/Scripts/UIHandler.cs" Line="28" Column="12" />
       <File FileName="Assets/Scripts/Bullet.cs" Line="21" Column="189" />
       <File FileName="Assets/Scripts/PlayerControls.cs" Line="84" Column="14" />
-      <File FileName="Assets/Scripts/SimpleAI.cs" Line="6" Column="1" />
+      <File FileName="Assets/Scripts/SimpleAI.cs" Line="286" Column="1" />
       <File FileName="Assets/Scripts/UITextUpdater.cs" Line="26" Column="19" />
       <File FileName="Assets/Scripts/UIText.cs" Line="25" Column="48" />
       <File FileName="Assets/Scripts/IUI.cs" Line="6" Column="2" />

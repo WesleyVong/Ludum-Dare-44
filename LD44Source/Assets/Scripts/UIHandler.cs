@@ -25,12 +25,27 @@ public class UIHandler
     }
     public void SetValue(string val)
     {
-        value = val;
-        
+        try
+        {
+            if (float.Parse(val) <= float.Parse(startValue))
+            {
+                value = val;
+            }
+            else
+            {
+                value = startValue;
+            }
+        }
+        catch
+        {
+            value = val;
+        }
+
         if (startValue == "")
         {
             SetResetValue(value);
         }
+
         if (autoUpdate)
         {
             UpdateUI();
