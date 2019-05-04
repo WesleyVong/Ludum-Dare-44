@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f2a03800159e44b992e04f07bfc62d, type: 3}
+  m_Name: Sniper
+  m_EditorClassIdentifier: 
+  item: {fileID: 94498892996525914, guid: fbcdbbad787c8a344ab636bc7f12c248, type: 3}
+  itemName: Sniper
+  itemDesc: Pierces Enemies
+  itemCost: 3

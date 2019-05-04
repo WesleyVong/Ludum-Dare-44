@@ -18497,7 +18497,7 @@ PrefabInstance:
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
       propertyPath: Items.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
@@ -18611,6 +18611,12 @@ PrefabInstance:
     - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
         type: 3}
       propertyPath: Items.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 73830b4a2641443bb804d7e4583f4a60,
+        type: 2}
+    - target: {fileID: 2855975879410149721, guid: 6ce906ac4baceef49a0e74f88bd99c39,
+        type: 3}
+      propertyPath: Items.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: 75e4a588a6c594d61a8faf3330b426d4,
         type: 2}
@@ -18802,5 +18808,15 @@ PrefabInstance:
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 1813972383}
+    - target: {fileID: 5690808524795465510, guid: 22fdbb454c6599f4b847fa22b83bed7e,
+        type: 3}
+      propertyPath: Inventory.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5690808524795465511, guid: 22fdbb454c6599f4b847fa22b83bed7e,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22fdbb454c6599f4b847fa22b83bed7e, type: 3}

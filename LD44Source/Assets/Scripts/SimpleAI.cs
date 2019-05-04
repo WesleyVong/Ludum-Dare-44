@@ -67,7 +67,15 @@ public class SimpleAI : MonoBehaviour, IPlayer
         }
         if (tilemap == null)
         {
-            tilemap = GameObject.FindGameObjectWithTag("Ground").GetComponent<Tilemap>();
+            try
+            {
+                tilemap = GameObject.FindGameObjectWithTag("Ground").GetComponent<Tilemap>();
+            }
+            catch
+            {
+                Debug.Log("No object with tag 'Ground' found");
+            }
+
         }
     }
 
