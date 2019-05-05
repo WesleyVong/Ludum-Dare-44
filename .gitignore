@@ -1,1 +1,8 @@
 LD44Source/Library/il2cpp_cache/**
+LD44Source/Library/PackageCache/**
+LD44Source/Library/metadata/**
+LD44Source/Library/PlayerDataCache/**
+LD44Source/Library/ShaderCache/**
+LD44Source/Library/shadercomplier/**
+LD44Source/Library/shadercompiler-UnityShaderCompiler.exe*.log
+LD44Source/Library/ScriptAssemblies/**
