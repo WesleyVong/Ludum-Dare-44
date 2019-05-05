@@ -52,10 +52,6 @@ public class UIBarUpdate : MonoBehaviour, IUI
             overload = 0;
         }
         xScale = value / ((max + overload) - min);
-        if (isUI)
-        {
-            Debug.Log(overload + " " + max + " " + min);
-        }
 
         if (isUI)
         {

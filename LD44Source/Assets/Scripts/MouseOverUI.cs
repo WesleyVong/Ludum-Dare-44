@@ -21,12 +21,10 @@ public class MouseOverUI : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         Description.GetComponent<DescriptionText>().UpdateText(index);
-        Debug.Log("Mouse Over");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         Description.GetComponent<DescriptionText>().RemoveText();
-        Debug.Log("Mouse Left");
     }
 }

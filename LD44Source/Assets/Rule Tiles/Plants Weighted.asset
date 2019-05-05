@@ -37,10 +37,10 @@ MonoBehaviour:
   Sprites:
   - Sprite: {fileID: 1009713400768470790, guid: b46c6b5f9c9c047a0939647b6fdce8e3,
       type: 3}
-    Weight: 3
+    Weight: 5
   - Sprite: {fileID: -7049854070133315898, guid: b46c6b5f9c9c047a0939647b6fdce8e3,
       type: 3}
-    Weight: 3
+    Weight: 5
   - Sprite: {fileID: 1852295513140887114, guid: b46c6b5f9c9c047a0939647b6fdce8e3,
       type: 3}
     Weight: 2

@@ -8,6 +8,8 @@ using System.Linq;
 public class UIHandler
 {
     public GameObject[] UIs;
+    [Tooltip("Description of the item")]
+    public string desc;
     public string value;
     public string startValue;
     public bool autoUpdate = true;

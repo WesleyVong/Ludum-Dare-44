@@ -82,6 +82,10 @@ public class Gun : MonoBehaviour, IHandHeld
         }
         if (tag == "Player" && !reloading)
         {
+            if (UIVar == null)
+            {
+                UIVar = GameObject.Find("Scene").GetComponent<UIVariables>();
+            }
             UIVar.UIs[1].SetValue(remaining.ToString());
             UIVar.UIs[1].SetResetValue(rounds.ToString());
         }

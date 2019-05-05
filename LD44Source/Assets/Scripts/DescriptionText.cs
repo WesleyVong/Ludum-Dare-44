@@ -8,13 +8,12 @@ public class DescriptionText : MonoBehaviour
     public float yOffset;
     public float xOffset;
 
-    private ShopHandler sh;
+    public ShopHandler sh;
     private Text text;
 
     // Start is called before the first frame update
     void Start()
     {
-        sh = GameObject.Find("Shop").GetComponent<ShopHandler>();
         text = GetComponent<Text>();
     }
 
@@ -26,7 +25,10 @@ public class DescriptionText : MonoBehaviour
 
     public void UpdateText(int index)
     {
-        text.text = sh.GetItem(index).itemDesc;
+        if (sh.GetItem(index).itemDesc != null)
+        {
+            text.text = sh.GetItem(index).itemDesc;
+        }
     }
 
     public void RemoveText()

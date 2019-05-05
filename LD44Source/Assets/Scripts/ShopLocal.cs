@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopLocal : MonoBehaviour, IInteract
 {
-    public ShopHandler shopUI;
+    private ShopHandler shopUI;
     public ShopItem[] Items;
     public GameObject ShopPanel;
 
@@ -12,6 +12,13 @@ public class ShopLocal : MonoBehaviour, IInteract
 
     private bool withinTrigger;
 
+    private void Start()
+    {
+        if (shopUI == null)
+        {
+            shopUI = ShopPanel.GetComponent<ShopHandler>();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

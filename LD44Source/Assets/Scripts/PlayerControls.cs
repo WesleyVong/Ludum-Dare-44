@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour, IPlayer
 {
@@ -21,14 +22,12 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public KeyCode leftAlt = KeyCode.LeftArrow;
     public KeyCode upAlt = KeyCode.UpArrow;
 
-    public GameObject GamePanel;
-    public GameObject ShopPanel;
-    public GameObject GameOverPanel;
-    public GameObject MenuPanel;
+    
     public List<GameObject> inTrigger;
+    public bool inWater;
     public bool withinShop;
 
-    public Tilemap tilemap;
+    private Tilemap tilemap;
 
     public bool contact = false;
     public bool autoJump = true;
@@ -57,26 +56,61 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
     private float jumpTimer;
 
+    // Panels
+    private GameObject GamePanel;
+    private GameObject ShopPanel;
+    private GameObject BloodPanel;
+    private GameObject GameOverPanel;
+    private GameObject MenuPanel;
+
+    // Scene Loading stuff
+    private string sceneName;
+
     private void Start()
     {
-        inTrigger = new List<GameObject>();
-        UIVar = GameObject.Find("Scene").GetComponent<UIVariables>();
-        startLocation = transform.position;
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            if (obj != this.gameObject)
+            {
+                Destroy(gameObject);
+            }
+        }
+
         rb = GetComponent<Rigidbody2D>();
         // Default without flip is right
         sr = GetComponent<SpriteRenderer>();
         SwitchSlots();
-        Pause();
+
+        sceneName = SceneManager.GetActiveScene().name;
+
+        Initialize();
+
+        if (sceneName != "Tutorial Scene")
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().name != sceneName)
+        {
+            if (sceneName == "Tutorial Scene")
+            {
+                Destroy(gameObject);
+            }
+            Initialize();
+            sceneName = SceneManager.GetActiveScene().name;
+            Debug.Log(sceneName);
+        }
+
         // Access Menu
         if (Input.GetKeyDown(menu))
         {
-            if (ShopPanel.activeInHierarchy)
+            if (ShopPanel.activeInHierarchy || BloodPanel.activeInHierarchy)
             {
                 ShopPanel.SetActive(false);
+                BloodPanel.SetActive(false);
             }
             else
             {
@@ -165,7 +199,11 @@ public class PlayerControls : MonoBehaviour, IPlayer
             }
 
             // Jump
-            if ((Input.GetKey(up) || Input.GetKey(upAlt)) && contact && canJump)
+            if (inWater && (Input.GetKey(up) || Input.GetKey(upAlt)))
+            {
+                rb.AddForce(Vector2.up * 100);
+            }
+            else if ((Input.GetKey(up) || Input.GetKey(upAlt)) && contact && canJump)
             {
                 Jump(1000);
             }
@@ -385,5 +423,61 @@ public class PlayerControls : MonoBehaviour, IPlayer
         {
             obj.GetComponent<SimpleAI>().Pause();
         }
+    }
+
+    public void Initialize()
+    {
+        inTrigger = new List<GameObject>();
+        tilemap = GameObject.FindGameObjectWithTag("Ground").GetComponent<Tilemap>();
+        UIVar = GameObject.Find("Scene").GetComponent<UIVariables>();
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            switch (obj.name)
+            {
+                case "Main Game Panel":
+                    GamePanel = obj;
+                    break;
+                case "Coin Shop":
+                    ShopPanel = obj;
+                    break;
+                case "Blood Shop":
+                    BloodPanel = obj;
+                    break;
+                case "Game Over":
+                    GameOverPanel = obj;
+                    break;
+                case "Menu":
+                    MenuPanel = obj;
+                    break;
+            }
+        }
+        
+
+        if (UIVar == null)
+        {
+            Debug.Log("No Scene Found");
+        }
+        if (GamePanel == null)
+        {
+            Debug.Log("No Game Panel Found");
+        }
+        if (ShopPanel == null)
+        {
+            Debug.Log("No Shop Panel Found");
+        }
+        if (BloodPanel == null)
+        {
+            Debug.Log("No Blood Panel Found");
+        }
+        if (GameOverPanel == null)
+        {
+            Debug.Log("No Game Over Panel Found");
+        }
+        if (MenuPanel == null)
+        {
+            Debug.Log("No Menu Panel Found");
+        }
+
+        startLocation = transform.position;
     }
 }

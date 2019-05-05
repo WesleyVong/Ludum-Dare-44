@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DoorHandler : MonoBehaviour, IInteract
 {
@@ -8,6 +9,12 @@ public class DoorHandler : MonoBehaviour, IInteract
     [Tooltip("Removes key when door opens")]
     public bool removeKey;
     public bool isOpen = false;
+    [Tooltip("If true, brings player to another scene")]
+    public bool sceneDoor = false;
+    [Tooltip("Teleports player here upon scene load")]
+    public bool teleportHere = false;
+    [Tooltip("Scene name (Needed if it is sceneDoor)")]
+    public string sceneName;
     public Sprite openSprite;
     public Sprite closeSprite;
     public AudioSource opening;
@@ -24,6 +31,10 @@ public class DoorHandler : MonoBehaviour, IInteract
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        if (teleportHere)
+        {
+            GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.up;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -71,11 +82,18 @@ public class DoorHandler : MonoBehaviour, IInteract
             }
             else
             {
-                if (otherDoor.GetComponent<DoorHandler>().needsKey && !otherDoor.GetComponent<DoorHandler>().isOpen)
+                if (sceneDoor)
                 {
-                    otherDoor.GetComponent<DoorHandler>().ToggleDoor();
+                    SceneManager.LoadScene(sceneName);
                 }
-                GameObject.FindGameObjectWithTag("Player").transform.position = otherDoor.transform.position + transform.up;
+                else
+                {
+                    if (otherDoor.GetComponent<DoorHandler>().needsKey && !otherDoor.GetComponent<DoorHandler>().isOpen)
+                    {
+                        otherDoor.GetComponent<DoorHandler>().ToggleDoor();
+                    }
+                    GameObject.FindGameObjectWithTag("Player").transform.position = otherDoor.transform.position + transform.up;
+                }
             }
             
         }

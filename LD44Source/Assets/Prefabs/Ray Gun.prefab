@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f508f3dbf4db264fa5eff3e4d550c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 250
+  fireRate: 100
   damageMultiplier: 1
   reloadTime: 0
   rounds: 1

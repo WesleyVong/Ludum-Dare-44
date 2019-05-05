@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class ShopHandler : MonoBehaviour
 {
     public UIVariables UIVar;
+    [Tooltip("Index of ui values which the purchase will subtract from.")]
+    public int accessIndex = 0;
     private GameObject player;
     
     public GameObject[] StoreSlots = new GameObject[10];
@@ -37,6 +39,10 @@ public class ShopHandler : MonoBehaviour
 
     public ShopItem GetItem(int index)
     {
+        if (index > Items.Length - 1)
+        {
+            return new ShopItem();
+        }
         return Items[index];
     }
 
@@ -47,19 +53,23 @@ public class ShopHandler : MonoBehaviour
 
     public void Purchase(int itemNum)
     {
-        if (int.Parse(UIVar.UIs[0].GetValue()) - Items[itemNum].itemCost >= 0){
-            for (int i = 0; i < player.GetComponent<PlayerControls>().Inventory.Length; i++)
+        if (itemNum < Items.Length)
+        {
+            if (int.Parse(UIVar.UIs[accessIndex].GetValue()) - Items[itemNum].itemCost >= 0)
             {
-                if (player.GetComponent<PlayerControls>().Inventory[i] == null)
+                for (int i = 0; i < player.GetComponent<PlayerControls>().Inventory.Length; i++)
                 {
-                    GameObject obj = Instantiate(Items[itemNum].item, player.transform);
-                    obj.SetActive(false);
-                    player.GetComponent<PlayerControls>().Inventory[i] = obj;
-                    player.GetComponent<PlayerControls>().SwitchSlots();
+                    if (player.GetComponent<PlayerControls>().Inventory[i] == null)
+                    {
+                        GameObject obj = Instantiate(Items[itemNum].item, player.transform);
+                        obj.SetActive(false);
+                        player.GetComponent<PlayerControls>().Inventory[i] = obj;
+                        player.GetComponent<PlayerControls>().SwitchSlots();
 
-                    UIVar.UIs[0].SetValue((int.Parse(UIVar.UIs[0].GetValue()) - Items[itemNum].itemCost).ToString());
-                    audio.Play();
-                    break;
+                        UIVar.UIs[accessIndex].SetValue((int.Parse(UIVar.UIs[accessIndex].GetValue()) - Items[itemNum].itemCost).ToString());
+                        audio.Play();
+                        break;
+                    }
                 }
             }
         }
