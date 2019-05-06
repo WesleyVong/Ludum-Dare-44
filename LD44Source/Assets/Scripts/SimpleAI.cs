@@ -22,9 +22,10 @@ public class SimpleAI : MonoBehaviour, IPlayer
     public float jumpCooldown;
     public float health = 10;
     [Tooltip("Range of Detection of Player")]
+    public float detectRange = 20;
     public float attackRange = 10;
     [Tooltip("Make the number larger for larger colliders and smaller for smaller colliders")]
-    public float detectionDistance = 0.5f;
+    public float collisionCheckDistance = 0.5f;
     public bool wander;
     public bool followTarget;
     public bool autoJump;
@@ -33,6 +34,9 @@ public class SimpleAI : MonoBehaviour, IPlayer
     [Tooltip("Attacks players when they get next to the enemy")]
     public bool melee;
     public bool trackingWeapon;
+
+    // Animations
+    public Animator anim;
 
     private bool isPaused;
 
@@ -87,10 +91,43 @@ public class SimpleAI : MonoBehaviour, IPlayer
             targetLocation = target.transform.position;
             distanceVector = targetLocation - position;
 
-            if (wander)
+            if (distanceVector.magnitude <= detectRange)
             {
-                if (wanderTimer > 0)
+                if (wander)
                 {
+                    if (wanderTimer > 0)
+                    {
+                        if (avoidCliffs)
+                        {
+
+                            if (NextToCliff(goRight) == false)
+                            {
+                                Move();
+                            }
+                        }
+                        else
+                        {
+                            Move();
+                        }
+                    }
+                    else
+                    {
+                        wanderTimer = Random.Range(0.5f, 2f);
+                        goRight = !goRight;
+                    }
+
+                }
+
+                if (followTarget)
+                {
+                    if (distanceVector.x > 0)
+                    {
+                        goRight = true;
+                    }
+                    else
+                    {
+                        goRight = false;
+                    }
                     if (avoidCliffs)
                     {
 
@@ -104,60 +141,45 @@ public class SimpleAI : MonoBehaviour, IPlayer
                         Move();
                     }
                 }
-                else
+
+                if (attackPlayer)
                 {
-                    wanderTimer = Random.Range(0.5f, 2f);
-                    goRight = !goRight;
+                    AttackPlayer();
                 }
 
-            }
+                if (autoJump)
+                {
+                    AutoJump();
+                }
 
-            if (followTarget)
+                UIBar.UpdateUI(health.ToString());
+
+                if (health <= 0)
+                {
+                    Death();
+                }
+
+                fireDelayTimer -= Time.deltaTime;
+                jumpTimer -= Time.deltaTime;
+                wanderTimer -= Time.deltaTime;
+
+                if (anim != null)
+                {
+                    anim.SetBool("isWalking", true);
+                }
+                UIBar.gameObject.transform.parent.gameObject.SetActive(true);
+                onHand.SetActive(true);
+            }
+            else
             {
-                if (distanceVector.x > 0)
+                if (anim != null)
                 {
-                    goRight = true;
+                    anim.SetBool("isWalking", false);
                 }
-                else
-                {
-                    goRight = false;
-                }
-                if (avoidCliffs)
-                {
-
-                    if (NextToCliff(goRight) == false)
-                    {
-                        Move();
-                    }
-                }
-                else
-                {
-                    Move();
-                }
+                UIBar.gameObject.transform.parent.gameObject.SetActive(false);
+                onHand.SetActive(false);
             }
-
-            if (attackPlayer)
-            {
-                AttackPlayer();
-            }
-
-            if (autoJump)
-            {
-                AutoJump();
-            }
-
-            UIBar.UpdateUI(health.ToString());
-
-            if (health <= 0)
-            {
-                Death();
-            }
-
-            fireDelayTimer -= Time.deltaTime;
-            jumpTimer -= Time.deltaTime;
-            wanderTimer -= Time.deltaTime;
         }
-
     }
 
     public void Damage(float dmg)
@@ -221,15 +243,15 @@ public class SimpleAI : MonoBehaviour, IPlayer
     {
         if (right &&
                 // Block to the bottom right exists
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance), 0))) == null &&
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance + 1), 0))) == null)
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y - (collisionCheckDistance), 0))) == null &&
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y - (collisionCheckDistance + 1), 0))) == null)
         {
             return true;
         }
         if (!right &&
             // Block to the bottom left exists
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance), 0))) == null &&
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y - (detectionDistance + 1), 0))) == null)
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y - (collisionCheckDistance), 0))) == null &&
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y - (collisionCheckDistance + 1), 0))) == null)
         {
             return true;
         }
@@ -245,11 +267,12 @@ public class SimpleAI : MonoBehaviour, IPlayer
     
     private void AutoJump()
     {
+        Debug.Log(tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))));
         if (facingRight && 
                 // Block to the right exists
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
                 // Block to the right top does not exist
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + detectionDistance, GetComponent<Collider2D>().bounds.min.y + detectionDistance + 1, 0))) == null)
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y + 1.5f, 0))) == null)
         {
             if (contact && canJump)
             {
@@ -258,9 +281,9 @@ public class SimpleAI : MonoBehaviour, IPlayer
         }
         if (!facingRight &&
             // Block to the left exists
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
             // Block to the left top does not exist
-            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - detectionDistance, GetComponent<Collider2D>().bounds.min.y + detectionDistance + 1, 0))) == null)
+            tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x - collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y + 1.5f, 0))) == null)
         {
             if (contact && canJump)
             {
