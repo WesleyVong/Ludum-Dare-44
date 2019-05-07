@@ -14,6 +14,7 @@ ScriptsOnlyBuild:
     - Bullet
     - CameraHandler
     - CheckpointHandler
+    - ChestHandler
     - Cut
     - DescriptionText
     - DoorHandler
@@ -47,8 +48,12 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
-    UnityEditor.TestRunner.dll:
-    - UnityEditor.TestTools.TestRunner.TestListCacheData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
@@ -132,23 +137,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10262}
     - Class: 114
-      Script: {instanceID: 10320}
+      Script: {instanceID: 10318}
     - Class: 114
-      Script: {instanceID: 10488}
+      Script: {instanceID: 10322}
     - Class: 114
-      Script: {instanceID: 10550}
+      Script: {instanceID: 10490}
     - Class: 114
       Script: {instanceID: 10552}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10554}
     - Class: 114
-      Script: {instanceID: 10594}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 10682}
+      Script: {instanceID: 10596}
     - Class: 114
-      Script: {instanceID: 10694}
+      Script: {instanceID: 10684}
     - Class: 114
       Script: {instanceID: 10696}
+    - Class: 114
+      Script: {instanceID: 10698}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -265,27 +272,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10262}
     - Class: 114
-      Script: {instanceID: 10320}
+      Script: {instanceID: 10322}
     - Class: 114
-      Script: {instanceID: 10488}
+      Script: {instanceID: 10490}
     - Class: 114
-      Script: {instanceID: 10500}
-    - Class: 114
-      Script: {instanceID: 10550}
+      Script: {instanceID: 10502}
     - Class: 114
       Script: {instanceID: 10552}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10554}
     - Class: 114
-      Script: {instanceID: 10594}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 10600}
+      Script: {instanceID: 10596}
     - Class: 114
-      Script: {instanceID: 10682}
+      Script: {instanceID: 10602}
     - Class: 114
-      Script: {instanceID: 10694}
+      Script: {instanceID: 10684}
     - Class: 114
       Script: {instanceID: 10696}
+    - Class: 114
+      Script: {instanceID: 10698}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -333,11 +340,17 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 70
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 82
       Script: {instanceID: 0}
     - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -380,25 +393,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10022}
     - Class: 114
+      Script: {instanceID: 10078}
+    - Class: 114
       Script: {instanceID: 10188}
     - Class: 114
       Script: {instanceID: 10262}
     - Class: 114
-      Script: {instanceID: 10320}
-    - Class: 114
-      Script: {instanceID: 10550}
+      Script: {instanceID: 10322}
     - Class: 114
       Script: {instanceID: 10552}
     - Class: 114
-      Script: {instanceID: 10566}
+      Script: {instanceID: 10554}
     - Class: 114
-      Script: {instanceID: 10594}
+      Script: {instanceID: 10568}
     - Class: 114
-      Script: {instanceID: 10682}
+      Script: {instanceID: 10596}
     - Class: 114
-      Script: {instanceID: 10694}
+      Script: {instanceID: 10684}
     - Class: 114
       Script: {instanceID: 10696}
+    - Class: 114
+      Script: {instanceID: 10698}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -492,7 +507,7 @@ ScriptsOnlyBuild:
     className: ActivationTrack
   - hash:
       serializedVersion: 2
-      Hash: 05c53eec5d29577979c1c424ba3d459b
+      Hash: 3122da66c1957a2e9693f141421bd652
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIVariables
@@ -1098,7 +1113,7 @@ ScriptsOnlyBuild:
     className: HexagonalRuleTile
   - hash:
       serializedVersion: 2
-      Hash: 3558f2b9226d7b7430580fb8fc962ed6
+      Hash: 90fe9f4faf4f82d983ae0d14ebc88205
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SimpleAI
@@ -1192,6 +1207,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: UnityEngine
     className: IsometricRuleTile
+  - hash:
+      serializedVersion: 2
+      Hash: 469401e75f4f9aa18251de7855b6a894
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ChestHandler
   - hash:
       serializedVersion: 2
       Hash: 8bdfa1e432488e94056838b2fa92e7e8
@@ -1341,4 +1362,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/Tutorial Scene.unity
   - Assets/Scenes/Overworld.unity
   - Assets/Scenes/Underground.unity
-  playerPath: C:/Users/Wesley Vong/Desktop/LD44Web_Updated
+  playerPath: /Users/wv/Desktop/LD44-Web

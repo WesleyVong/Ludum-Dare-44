@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 132909518}
   - component: {fileID: 132909519}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: Blood Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4427,7 +4427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yOffset: 2
   xOffset: 0
-  sh: {fileID: 0}
+  sh: {fileID: 132909518}
 --- !u!114 &1030947283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5974,14 +5974,14 @@ MonoBehaviour:
   - UIs:
     - {fileID: 471339123}
     - {fileID: 1389274843}
-    desc: 
+    name: Lives
     value: 5
     startValue: 999
     autoUpdate: 1
     doNotReset: 1
   - UIs:
     - {fileID: 482593197}
-    desc: 
+    name: Bullets
     value: 0
     startValue: 0
     autoUpdate: 1
@@ -5989,7 +5989,7 @@ MonoBehaviour:
   - UIs:
     - {fileID: 1754822489}
     - {fileID: 1079961893}
-    desc: 
+    name: Health
     value: 20
     startValue: 20
     autoUpdate: 1

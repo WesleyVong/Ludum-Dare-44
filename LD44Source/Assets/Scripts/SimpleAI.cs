@@ -267,7 +267,7 @@ public class SimpleAI : MonoBehaviour, IPlayer
     
     private void AutoJump()
     {
-        Debug.Log(tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))));
+        //Debug.Log(tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))));
         if (facingRight && 
                 // Block to the right exists
                 tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&

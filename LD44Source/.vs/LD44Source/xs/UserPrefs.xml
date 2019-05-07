@@ -1,23 +1,16 @@
 ﻿<Properties StartupConfiguration="{6C663FCC-5BD4-8108-2CA5-F0502F617E65}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/WaterBehavior.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DescriptionText.cs">
     <Files>
       <File FileName="Assets/Scripts/UIBarUpdate.cs" Line="50" Column="13" />
-      <File FileName="Assets/Scripts/UIHandler.cs" Line="28" Column="12" />
+      <File FileName="Assets/Scripts/UIHandler.cs" Line="95" Column="5" />
       <File FileName="Assets/Scripts/Bullet.cs" Line="21" Column="6" />
-      <File FileName="Assets/Scripts/PlayerControls.cs" Line="84" Column="14" />
-      <File FileName="Assets/Scripts/SimpleAI.cs" Line="74" Column="18" />
-      <File FileName="Assets/Scripts/UITextUpdater.cs" Line="26" Column="19" />
-      <File FileName="Assets/Scripts/UIText.cs" Line="25" Column="48" />
+      <File FileName="Assets/Scripts/PlayerControls.cs" Line="466" Column="1" />
+      <File FileName="Assets/Scripts/SimpleAI.cs" Line="270" Column="11" />
       <File FileName="Assets/Scripts/IUI.cs" Line="6" Column="2" />
-      <File FileName="Assets/Scripts/UIVariables.cs" Line="22" Column="10" />
-      <File FileName="Assets/Scripts/Gun.cs" Line="75" Column="10" />
-      <File FileName="Assets/Scripts/ShopItem.cs" Line="25" Column="1" />
-      <File FileName="Assets/Scripts/ShopHandler.cs" Line="37" Column="1" />
-      <File FileName="Assets/Scripts/ShopLocal.cs" Line="36" Column="14" />
-      <File FileName="Assets/Scripts/Rocket.cs" Line="25" Column="111" />
-      <File FileName="Assets/Scripts/Ray.cs" Line="28" Column="30" />
-      <File FileName="Assets/Scripts/Cut.cs" Line="21" Column="34" />
-      <File FileName="Assets/WaterBehavior.cs" Line="14" Column="47" />
+      <File FileName="Assets/Scripts/UIVariables.cs" Line="18" Column="9" />
+      <File FileName="Assets/Scripts/DoorHandler.cs" Line="84" Column="14" />
+      <File FileName="Assets/ChestHandler.cs" Line="48" Column="17" />
+      <File FileName="Assets/Scripts/DescriptionText.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

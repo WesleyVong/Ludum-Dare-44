@@ -8,8 +8,8 @@ using System.Linq;
 public class UIHandler
 {
     public GameObject[] UIs;
-    [Tooltip("Description of the item")]
-    public string desc;
+    [Tooltip("Name of the item")]
+    public string name;
     public string value;
     public string startValue;
     public bool autoUpdate = true;
@@ -85,5 +85,25 @@ public class UIHandler
             value = startValue;
             UpdateUI();
         }
+    }
+
+    public void Load()
+    {
+        value = PlayerPrefs.GetString(name + "-Value",value);
+        startValue = PlayerPrefs.GetString(name + "-Start",startValue);
+    }
+
+    public void Save()
+    {
+        if (name != "")
+        {
+            PlayerPrefs.SetString(name + "-Value", value);
+            PlayerPrefs.SetString(name + "-Start", startValue);
+        }
+        else
+        {
+            Debug.Log("Error: No Name Found");
+        }
+        PlayerPrefs.Save();
     }
 }
