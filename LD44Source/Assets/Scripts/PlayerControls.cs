@@ -84,27 +84,17 @@ public class PlayerControls : MonoBehaviour, IPlayer
         sceneName = SceneManager.GetActiveScene().name;
 
         Initialize();
-
-        if (sceneName != "Tutorial Scene")
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
+        
+        
     }
 
     void Update()
     {
         if (SceneManager.GetActiveScene().name != sceneName)
         {
-            if (sceneName == "Tutorial Scene")
-            {
-                Destroy(gameObject);
-                PlayerPrefs.DeleteAll();
-            }
             Initialize();
             sceneName = SceneManager.GetActiveScene().name;
             transform.position = new Vector2(PlayerPrefs.GetFloat(sceneName + "-posX", 0), PlayerPrefs.GetFloat(sceneName + "-posY", 0));
-            Debug.Log(transform.position);
-            Debug.Log(sceneName);
         }
 
         // Access Menu
@@ -307,10 +297,11 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
             // Death Conditions
             if (transform.position.y < -20f ||
-                float.Parse(UIVar.UIs[2].GetValue()) <= 0)
+               float.Parse(UIVar.UIs[2].GetValue()) <= 0)
             {
                 Death();
             }
+            
         }
     }
 
@@ -442,14 +433,29 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
     public void Pause()
     {
-        MenuPanel.SetActive(!MenuPanel.activeInHierarchy);
         isPaused = !isPaused;
         if (isPaused)
         {
+            try
+            {
+                MenuPanel.SetActive(true);
+            }
+            catch
+            {
+
+            }
             Time.timeScale = 0;
         }
         else
         {
+            try
+            {
+                MenuPanel.SetActive(false);
+            }
+            catch
+            {
+
+            }
             Time.timeScale = 1;
         }
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Enemy"))

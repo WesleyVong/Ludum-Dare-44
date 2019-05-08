@@ -1141,7 +1141,7 @@ PrefabInstance:
     - target: {fileID: 1124630310005348240, guid: 1d00f011b3f771646b642b7ed1153e06,
         type: 3}
       propertyPath: sceneName
-      value: Overworld
+      value: Start Scene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d00f011b3f771646b642b7ed1153e06, type: 3}
