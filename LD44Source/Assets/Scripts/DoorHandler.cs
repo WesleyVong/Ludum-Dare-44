@@ -11,8 +11,6 @@ public class DoorHandler : MonoBehaviour, IInteract
     public bool isOpen = false;
     [Tooltip("If true, brings player to another scene")]
     public bool sceneDoor = false;
-    [Tooltip("Teleports player here upon scene load")]
-    public bool teleportHere = false;
     [Tooltip("Scene name (Needed if it is sceneDoor)")]
     public string sceneName;
     public Sprite openSprite;
@@ -31,10 +29,6 @@ public class DoorHandler : MonoBehaviour, IInteract
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        if (teleportHere)
-        {
-            GameObject.FindGameObjectWithTag("Player").transform.position = transform.position + transform.up;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -85,7 +79,7 @@ public class DoorHandler : MonoBehaviour, IInteract
                 if (sceneDoor)
                 {
                     GameObject.Find("Scene").GetComponent<UIVariables>().SaveAll();
-                    SceneManager.LoadScene(sceneName);
+                    GameObject.Find("Scene").GetComponent<MenuCommands>().loadScene(sceneName);
                 }
                 else
                 {

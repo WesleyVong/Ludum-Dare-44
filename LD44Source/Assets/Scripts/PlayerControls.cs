@@ -98,24 +98,57 @@ public class PlayerControls : MonoBehaviour, IPlayer
             if (sceneName == "Tutorial Scene")
             {
                 Destroy(gameObject);
+                PlayerPrefs.DeleteAll();
             }
             Initialize();
             sceneName = SceneManager.GetActiveScene().name;
+            transform.position = new Vector2(PlayerPrefs.GetFloat(sceneName + "-posX", 0), PlayerPrefs.GetFloat(sceneName + "-posY", 0));
+            Debug.Log(transform.position);
             Debug.Log(sceneName);
         }
 
         // Access Menu
         if (Input.GetKeyDown(menu))
         {
-            if (ShopPanel.activeInHierarchy || BloodPanel.activeInHierarchy)
+            try
             {
-                ShopPanel.SetActive(false);
-                BloodPanel.SetActive(false);
+                if (ShopPanel.activeInHierarchy || BloodPanel.activeInHierarchy)
+                {
+                    ShopPanel.SetActive(false);
+                    BloodPanel.SetActive(false);
+                }
+                else
+                {
+                    Pause();
+                }
             }
-            else
+            catch
             {
-                Pause();
+                try
+                {
+                    if (ShopPanel.activeInHierarchy)
+                    {
+                        ShopPanel.SetActive(false);
+                    }
+                    else
+                    {
+                        Pause();
+                    }
+                }
+                catch
+                {
+                    if (BloodPanel.activeInHierarchy)
+                    {
+                        BloodPanel.SetActive(false);
+                    }
+                    else
+                    {
+                        Pause();
+                    }
+                }
             }
+           
+
         }
 
         if (!isPaused)

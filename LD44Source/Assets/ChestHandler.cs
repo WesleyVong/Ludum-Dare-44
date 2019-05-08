@@ -8,6 +8,7 @@ public class ChestHandler : MonoBehaviour, IInteract
     public Sprite openSprite;
     public Sprite closeSprite;
     public GameObject item;
+    public GameObject dropPrefab;
     public AudioSource opening;
 
     private SpriteRenderer sr;
@@ -44,6 +45,12 @@ public class ChestHandler : MonoBehaviour, IInteract
             if (!isOpen)
             {
                 ToggleChest();
+                GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
+                obj.GetComponent<ItemPickup>().item = item;
+                if (obj.GetComponent<Rigidbody2D>() != null)
+                {
+                    obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+                }
             }
 
         }

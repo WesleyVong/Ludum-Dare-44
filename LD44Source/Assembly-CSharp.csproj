@@ -75,6 +75,7 @@
     <Compile Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Weighted Random Tile\WeightedRandomTile.cs" />
     <Compile Include="Assets\CameraHandler.cs" />
     <Compile Include="Assets\ChestHandler.cs" />
+    <Compile Include="Assets\HelpText.cs" />
     <Compile Include="Assets\Scripts\AISound.cs" />
     <Compile Include="Assets\Scripts\Booster.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\Scripts\UITextUpdater.cs" />
     <Compile Include="Assets\Scripts\UIVariables.cs" />
     <Compile Include="Assets\Scripts\WaterBehavior.cs" />
+    <Compile Include="Assets\SignHandler.cs" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
