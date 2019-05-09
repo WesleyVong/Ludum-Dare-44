@@ -128,18 +128,15 @@ MonoBehaviour:
   rightAlt: 275
   leftAlt: 276
   upAlt: 273
-  GamePanel: {fileID: 0}
-  ShopPanel: {fileID: 0}
-  GameOverPanel: {fileID: 0}
-  MenuPanel: {fileID: 0}
   inTrigger: []
   inWater: 0
   withinShop: 0
-  tilemap: {fileID: 0}
   contact: 0
   autoJump: 1
   invincible: 0
+  moveSpeed: 40
   jumpCooldown: 0.5
+  deathLevel: -20
   audio: {fileID: 5690808524795465499}
   onHand: {fileID: 0}
   selected: 0
@@ -276,6 +273,7 @@ GameObject:
   - component: {fileID: 5690808525201378554}
   - component: {fileID: 5690808525201378309}
   - component: {fileID: 5690808525201378311}
+  - component: {fileID: 8823082659740813282}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -348,3 +346,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5690808525201378310}
   m_Enabled: 1
+--- !u!114 &8823082659740813282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690808525201378310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e490c767c54c84b4f8e49e55209e3088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgColors:
+  - {r: 0, g: 0.6901961, b: 0.8000001, a: 1}
+  - {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}
+  - {r: 0, g: 0.6901961, b: 0.8000001, a: 1}
+  - {r: 0.34117648, g: 0.34117648, b: 0.34117648, a: 1}

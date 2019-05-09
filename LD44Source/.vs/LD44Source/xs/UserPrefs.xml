@@ -1,19 +1,23 @@
 ﻿<Properties StartupConfiguration="{6C663FCC-5BD4-8108-2CA5-F0502F617E65}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MenuCommands.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/InventoryHandler.cs">
     <Files>
       <File FileName="Assets/Scripts/UIBarUpdate.cs" Line="50" Column="13" />
       <File FileName="Assets/Scripts/UIHandler.cs" Line="93" Column="52" />
       <File FileName="Assets/Scripts/Bullet.cs" Line="21" Column="6" />
-      <File FileName="Assets/Scripts/PlayerControls.cs" Line="147" Column="22" />
-      <File FileName="Assets/Scripts/SimpleAI.cs" Line="91" Column="1" />
+      <File FileName="Assets/Scripts/PlayerControls.cs" Line="270" Column="45" />
+      <File FileName="Assets/Scripts/SimpleAI.cs" Line="181" Column="14" />
       <File FileName="Assets/Scripts/IUI.cs" Line="6" Column="2" />
       <File FileName="Assets/Scripts/UIVariables.cs" Line="18" Column="9" />
-      <File FileName="Assets/Scripts/DoorHandler.cs" Line="34" Column="5" />
-      <File FileName="Assets/ChestHandler.cs" Line="13" Column="5" />
+      <File FileName="Assets/Scripts/DoorHandler.cs" Line="59" Column="17" />
+      <File FileName="Assets/ChestHandler.cs" Line="40" Column="1" />
       <File FileName="Assets/Scripts/DescriptionText.cs" Line="28" Column="1" />
-      <File FileName="Assets/Scripts/MenuCommands.cs" Line="28" Column="10" />
+      <File FileName="Assets/Scripts/MenuCommands.cs" Line="28" Column="6" />
       <File FileName="Assets/SignHandler.cs" Line="35" Column="33" />
       <File FileName="Assets/Scripts/AISound.cs" Line="16" Column="10" />
+      <File FileName="Assets/Scripts/WaterBehavior.cs" Line="21" Column="10" />
+      <File FileName="Assets/Scripts/Rocket.cs" Line="1" Column="1" />
+      <File FileName="Assets/Mineable.cs" Line="9" Column="33" />
+      <File FileName="Assets/Scripts/InventoryHandler.cs" Line="20" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

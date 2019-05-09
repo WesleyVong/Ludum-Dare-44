@@ -10,6 +10,7 @@ public class WaterBehavior : MonoBehaviour
         if (collision.tag == "Player")
         {
             collision.GetComponent<PlayerControls>().inWater = true;
+            collision.GetComponent<PlayerControls>().moveSpeed = 60;
         }
     }
 
@@ -19,6 +20,7 @@ public class WaterBehavior : MonoBehaviour
         if (collision.tag == "Player")
         {
             collision.GetComponent<PlayerControls>().inWater = false;
+            collision.GetComponent<PlayerControls>().moveSpeed = 40;
         }
     }
 }

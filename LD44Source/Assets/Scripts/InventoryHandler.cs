@@ -30,6 +30,7 @@ public class InventoryHandler : MonoBehaviour
         {
             if (items[i] != null)
             {
+                slots[i].GetComponent<Image>().rectTransform.rect.Set(items[i].GetComponent<SpriteRenderer>().sprite.border.x, items[i].GetComponent<SpriteRenderer>().sprite.border.y, items[i].GetComponent<SpriteRenderer>().sprite.border.z, items[i].GetComponent<SpriteRenderer>().sprite.border.w);
                 slots[i].GetComponent<Image>().sprite = items[i].GetComponent<SpriteRenderer>().sprite;
                 slots[i].GetComponent<Image>().color = new Color(255, 255, 255, 255);
             }

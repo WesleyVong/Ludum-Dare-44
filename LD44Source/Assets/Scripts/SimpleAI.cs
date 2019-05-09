@@ -267,12 +267,11 @@ public class SimpleAI : MonoBehaviour, IPlayer
     
     private void AutoJump()
     {
-        //Debug.Log(tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))));
         if (facingRight && 
                 // Block to the right exists
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.max.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y, 0))) != null &&
                 // Block to the right top does not exist
-                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y + 1.5f, 0))) == null)
+                tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.max.x + collisionCheckDistance, GetComponent<Collider2D>().bounds.min.y + 1.5f, 0))) == null)
         {
             if (contact && canJump)
             {

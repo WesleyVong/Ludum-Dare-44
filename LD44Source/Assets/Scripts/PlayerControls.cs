@@ -32,7 +32,9 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public bool contact = false;
     public bool autoJump = true;
     public bool invincible;
+    public float moveSpeed = 40;
     public float jumpCooldown = 0.5f;
+    public float deathLevel = -20f;
 
     public AudioSource audio;
 
@@ -190,11 +192,11 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 }
                 if (contact)
                 {
-                    rb.AddForce(Vector2.right * 40);
+                    rb.AddForce(Vector2.right * moveSpeed);
                 }
                 else
                 {
-                    rb.AddForce(Vector2.right * 20);
+                    rb.AddForce(Vector2.right * moveSpeed/2);
                 }
                 if (!facingRight)
                 {
@@ -209,11 +211,11 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 }
                 if (contact)
                 {
-                    rb.AddForce(Vector2.left * 40);
+                    rb.AddForce(Vector2.left * moveSpeed);
                 }
                 else
                 {
-                    rb.AddForce(Vector2.left * 20);
+                    rb.AddForce(Vector2.left * moveSpeed/2);
                 }
                 if (facingRight)
                 {
@@ -265,7 +267,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
             // Interacts with object
             if (Input.GetKeyDown(interact))
             {
-                foreach (GameObject obj in inTrigger)
+                foreach (GameObject obj in inTrigger.ToArray())
                 {
                     var objectToInteract = obj.GetComponents<MonoBehaviour>();
                     IInteract[] interfaceScripts = (from a in objectToInteract where a.GetType().GetInterfaces().Any(k => k == typeof(IInteract)) select (IInteract)a).ToArray();
@@ -296,7 +298,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
             jumpTimer -= Time.deltaTime;
 
             // Death Conditions
-            if (transform.position.y < -20f ||
+            if (transform.position.y < deathLevel ||
                float.Parse(UIVar.UIs[2].GetValue()) <= 0)
             {
                 Death();
