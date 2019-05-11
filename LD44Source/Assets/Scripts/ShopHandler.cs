@@ -32,7 +32,29 @@ public class ShopHandler : MonoBehaviour
             if (Items[i] != null)
             {
                 StoreSlots[i].GetComponentInChildren<Text>().text = Items[i].ToString();
-                StoreSlots[i].GetComponentsInChildren<Image>()[1].sprite = Items[i].getThumbnail();
+
+                // Make image reflect size of the sprite
+                Sprite sprite = Items[i].getThumbnail();
+                float spriteX = sprite.bounds.size.x;
+                float spriteY = sprite.bounds.size.y;
+                // Sprite size is square or is wider than it is tall
+                if (spriteX >= spriteY)
+                {
+                    // Makes sure sprite size reaches as large as possible
+                    float factor = 60 / spriteX;
+                    spriteX *= factor;
+                    spriteY *= factor;
+                }
+                else
+                // Sprite size is taller that it is wide
+                {
+                    // Makes sure sprite size reaches as large as possible
+                    float factor = 60 / spriteY;
+                    spriteX *= factor;
+                    spriteY *= factor;
+                }
+                StoreSlots[i].GetComponentsInChildren<Image>()[1].rectTransform.sizeDelta = new Vector2(spriteX, spriteY);
+                StoreSlots[i].GetComponentsInChildren<Image>()[1].sprite = sprite;
             }
         }
     }

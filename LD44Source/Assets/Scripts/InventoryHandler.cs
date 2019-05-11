@@ -30,7 +30,28 @@ public class InventoryHandler : MonoBehaviour
         {
             if (items[i] != null)
             {
-                slots[i].GetComponent<Image>().rectTransform.rect.Set(items[i].GetComponent<SpriteRenderer>().sprite.border.x, items[i].GetComponent<SpriteRenderer>().sprite.border.y, items[i].GetComponent<SpriteRenderer>().sprite.border.z, items[i].GetComponent<SpriteRenderer>().sprite.border.w);
+                // Make image reflect size of the sprite
+                Sprite sprite = items[i].GetComponent<SpriteRenderer>().sprite;
+                float spriteX = sprite.bounds.size.x;
+                float spriteY = sprite.bounds.size.y;
+                // Sprite size is square or is wider than it is tall
+                if (spriteX >= spriteY)
+                {
+                    // Makes sure sprite size reaches as large as possible
+                    float factor = 50 / spriteX;
+                    spriteX *= factor;
+                    spriteY *= factor;
+                }
+                else
+                // Sprite size is taller that it is wide
+                {
+                    // Makes sure sprite size reaches as large as possible
+                    float factor = 50 / spriteY;
+                    spriteX *= factor;
+                    spriteY *= factor;
+                }
+
+                slots[i].GetComponent<Image>().rectTransform.sizeDelta = new Vector2(spriteX, spriteY);
                 slots[i].GetComponent<Image>().sprite = items[i].GetComponent<SpriteRenderer>().sprite;
                 slots[i].GetComponent<Image>().color = new Color(255, 255, 255, 255);
             }

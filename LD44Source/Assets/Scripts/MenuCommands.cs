@@ -7,7 +7,14 @@ public class MenuCommands : MonoBehaviour
 {
     public void Quit()
     {
-        Save();
+        try
+        {
+            Save();
+        }
+        catch
+        {
+            Debug.Log("Save Function Error");
+        }
         Application.Quit();
     }
 
