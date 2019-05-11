@@ -61,8 +61,15 @@ public class SimpleAI : MonoBehaviour, IPlayer
     private Vector2 distanceVector;
     private Vector2 position;
 
+    private string ID;
+
     private void Start()
     {
+        ID = transform.position.sqrMagnitude.ToString();
+        if (PlayerPrefs.GetString(ID, "False") == "True")
+        {
+            Death(false);
+        }
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         if (target == null)
@@ -347,24 +354,28 @@ public class SimpleAI : MonoBehaviour, IPlayer
         facingRight = !facingRight;
     }
 
-    public void Death()
+    public void Death(bool doDrop = true)
     {
-        foreach (GameObject drop in drops)
+        if (doDrop)
         {
-            if (drop.GetComponent<Rigidbody2D>() != null)
+            foreach (GameObject drop in drops)
             {
-                GameObject obj = Instantiate(drop, transform.position, transform.rotation);
-                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
-            }
-            else
-            {
-                GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
-                obj.GetComponent<ItemPickup>().item = drop;
-                obj.GetComponent<ItemPickup>().gracePeriod(0.5f);
-                obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+                if (drop.GetComponent<Rigidbody2D>() != null)
+                {
+                    GameObject obj = Instantiate(drop, transform.position, transform.rotation);
+                    obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+                }
+                else
+                {
+                    GameObject obj = Instantiate(dropPrefab, transform.position, transform.rotation);
+                    obj.GetComponent<ItemPickup>().item = drop;
+                    obj.GetComponent<ItemPickup>().gracePeriod(0.5f);
+                    obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
+                }
             }
         }
-        
+
+        PlayerPrefs.SetString(ID, "True");
         Destroy(gameObject);
     }
 

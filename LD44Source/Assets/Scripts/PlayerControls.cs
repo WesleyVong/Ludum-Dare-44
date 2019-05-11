@@ -86,8 +86,19 @@ public class PlayerControls : MonoBehaviour, IPlayer
         sceneName = SceneManager.GetActiveScene().name;
 
         Initialize();
-        
-        
+
+        // Sets up Inventory System
+        for (int i = 0; i < Inventory.Length; i++)
+        {
+            if (PlayerPrefs.GetString("Slot" + i, "") != "")
+            {
+                GameObject prefab = (GameObject)Resources.Load("Prefabs/Handheld/" + PlayerPrefs.GetString("Slot" + i, ""));
+                GameObject obj = Instantiate(prefab, transform);
+                obj.SetActive(false);
+                Inventory[i] = obj;
+            }
+        }
+        SwitchSlots();
     }
 
     void Update()
@@ -98,6 +109,16 @@ public class PlayerControls : MonoBehaviour, IPlayer
             sceneName = SceneManager.GetActiveScene().name;
             transform.position = new Vector2(PlayerPrefs.GetFloat(sceneName + "-posX", 0), PlayerPrefs.GetFloat(sceneName + "-posY", 0));
         }
+
+        if (inWater)
+        {
+            UIVar.UIs[4].SetValue((float.Parse(UIVar.UIs[4].GetValue()) - Time.deltaTime * 0.75).ToString());
+        }
+        else
+        {
+            UIVar.UIs[4].SetValue((float.Parse(UIVar.UIs[4].GetValue()) + Time.deltaTime * 2).ToString());
+        }
+
 
         // Access Menu
         if (Input.GetKeyDown(menu))
@@ -299,7 +320,8 @@ public class PlayerControls : MonoBehaviour, IPlayer
 
             // Death Conditions
             if (transform.position.y < deathLevel ||
-               float.Parse(UIVar.UIs[2].GetValue()) <= 0)
+               float.Parse(UIVar.UIs[2].GetValue()) <= 0 ||
+                float.Parse(UIVar.UIs[4].GetValue()) <= 0)
             {
                 Death();
             }
@@ -519,6 +541,6 @@ public class PlayerControls : MonoBehaviour, IPlayer
             Debug.Log("No Menu Panel Found");
         }
 
-        startLocation = transform.position;
+        startLocation = new Vector2(PlayerPrefs.GetFloat(sceneName + "-posX", 0), PlayerPrefs.GetFloat(sceneName + "-posY", 0));
     }
 }

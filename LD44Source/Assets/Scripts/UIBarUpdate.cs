@@ -56,7 +56,7 @@ public class UIBarUpdate : MonoBehaviour, IUI
         if (isUI)
         {
             GetComponent<RectTransform>().localScale = new Vector3(xScale, 1, 1);
-            GetComponent<RectTransform>().anchoredPosition = new Vector3(xPos * xScale, yPos, 0);
+            //GetComponent<RectTransform>().anchoredPosition = new Vector3(xPos * xScale, yPos, 0);
         }
         else
         {

@@ -18,7 +18,7 @@ public class UIText : MonoBehaviour, IUI
         {
             try
             {
-                GetComponent<Text>().text = (float.Parse(val)).ToString("F2") + "/" + max; ;
+                GetComponent<Text>().text = (float.Parse(val)).ToString("F1") + "/" + max; ;
             }
             catch
             {

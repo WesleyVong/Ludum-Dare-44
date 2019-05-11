@@ -30,7 +30,8 @@ MonoBehaviour:
   - m_Neighbors: 0000000001000000000000000000000000000000000000000000000000000000
     m_Sprites:
     - {fileID: -5882170695943828418, guid: 79fcfdb617676534892f6cf0ada0d5f2, type: 3}
-    m_GameObject: {fileID: 0}
+    m_GameObject: {fileID: 5670682865451403305, guid: b9d2b562e7e104bf186b0b36886ab944,
+      type: 3}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
     m_RuleTransform: 0

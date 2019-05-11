@@ -8,7 +8,6 @@ public class DoorHandler : MonoBehaviour, IInteract
     public bool needsKey;
     [Tooltip("Removes key when door opens")]
     public bool removeKey;
-    public bool isOpen = false;
     [Tooltip("If true, brings player to another scene")]
     public bool sceneDoor = false;
     [Tooltip("Scene name (Needed if it is sceneDoor)")]
@@ -18,7 +17,9 @@ public class DoorHandler : MonoBehaviour, IInteract
     public AudioSource opening;
     public AudioSource locked;
     public GameObject otherDoor;
+    public string ID;
 
+    private bool isOpen = false;
     private SpriteRenderer sr;
 
     [Tooltip("Needed if the door needs a key")]
@@ -29,6 +30,11 @@ public class DoorHandler : MonoBehaviour, IInteract
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        ID = transform.position.sqrMagnitude.ToString();
+        if (PlayerPrefs.GetString(ID,"False") == "True")
+        {
+            ToggleDoor();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -106,5 +112,7 @@ public class DoorHandler : MonoBehaviour, IInteract
         {
             sr.sprite = closeSprite;
         }
+        PlayerPrefs.SetString(ID, isOpen.ToString());
     }
+
 }

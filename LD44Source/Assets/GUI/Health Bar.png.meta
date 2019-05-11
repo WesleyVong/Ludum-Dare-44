@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: c8574ea50521f414eada9a9618c1d265
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: pixil-frame-0 (10)_0
-    21300002: pixil-frame-0 (10)_1
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: pixil-frame-0 (10)_0
+  - first:
+      213: 21300002
+    second: pixil-frame-0 (10)_1
   externalObjects: {}
-  serializedVersion: 9
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -105,13 +109,14 @@ TextureImporter:
         width: 256
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 3b882ba5e30c8d9439ec485610ba9a67
+      internalID: 21300000
       vertices: []
       indices: 
       edges: []
@@ -124,14 +129,15 @@ TextureImporter:
         y: 72
         width: 250
         height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: ec75a021b80d3564db7fa259b6e07085
+      internalID: 21300002
       vertices: []
       indices: 
       edges: []
@@ -140,10 +146,12 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: c45f5d8f2dc2a5245a4497f5b691e209
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

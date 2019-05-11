@@ -5994,6 +5994,20 @@ MonoBehaviour:
     startValue: 20
     autoUpdate: 1
     doNotReset: 0
+  - UIs: []
+    name: Filler
+    value: 20
+    startValue: 20
+    autoUpdate: 1
+    doNotReset: 0
+  - UIs:
+    - {fileID: 1754822489}
+    - {fileID: 1079961893}
+    name: Filler
+    value: 20
+    startValue: 20
+    autoUpdate: 1
+    doNotReset: 0
 --- !u!114 &1270774448
 MonoBehaviour:
   m_ObjectHideFlags: 0

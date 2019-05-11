@@ -15,9 +15,16 @@ public class ChestHandler : MonoBehaviour, IInteract
 
     private bool withinTrigger;
 
+    private string ID;
+
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        ID = transform.position.sqrMagnitude.ToString();
+        if (PlayerPrefs.GetString(ID,"False") == "True")
+        {
+            ToggleChest();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,6 +58,7 @@ public class ChestHandler : MonoBehaviour, IInteract
                 {
                     obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-2, 2), 2));
                 }
+                PlayerPrefs.SetString(ID, isOpen.ToString());
             }
 
         }
