@@ -113,6 +113,7 @@
     <Compile Include="Assets\Scripts\UIVariables.cs" />
     <Compile Include="Assets\Scripts\WaterBehavior.cs" />
     <Compile Include="Assets\SignHandler.cs" />
+    <Compile Include="Assets\Web.cs" />
     <None Include="Assets\2d-extras-master\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

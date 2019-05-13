@@ -148,12 +148,30 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: 0, y: 4, z: 0}
+    second:
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: 1, y: 4, z: 0}
+    second:
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 8a8e6bfe85940794aba9e2e1feef91bf, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 351e45c0ae807e3438f5b24f10482b53, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: bc3d3b5241d6f1a429758f7ccbc4cd5e, type: 2}
   - m_RefCount: 1
@@ -169,10 +187,11 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 5788b7b651dbd8b47a1653e97a280570, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -3599981608736371148, guid: 38780e4c93bcb054e8cc62a9d13413d9,
+      type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: f1134359ae6c14e7780fc4ec6635dd36, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 9e4e9ec0a28a5488c81636f473a037a6, type: 3}
   - m_RefCount: 1
@@ -194,7 +213,7 @@ Tilemap:
     m_Data: {fileID: 4759472290128152135, guid: b46c6b5f9c9c047a0939647b6fdce8e3,
       type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 7
+  - m_RefCount: 9
     m_Data:
       e00: 1
       e01: 0
@@ -213,7 +232,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 7
+  - m_RefCount: 9
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: -7.401947e+13, g: -7.401947e+13, b: -7.401947e+13, a: -7.401947e+13}
