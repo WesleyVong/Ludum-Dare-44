@@ -1,18 +1,19 @@
 ﻿<Properties StartupConfiguration="{6C663FCC-5BD4-8108-2CA5-F0502F617E65}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerControls.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleAI.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerControls.cs" Line="90" Column="36" />
-      <File FileName="Assets/Scripts/SimpleAI.cs" Line="63" Column="5" />
-      <File FileName="Assets/Scripts/DoorHandler.cs" Line="86" Column="18" />
+      <File FileName="Assets/Scripts/PlayerControls.cs" Line="102" Column="9" />
+      <File FileName="Assets/Scripts/SimpleAI.cs" Line="73" Column="26" />
+      <File FileName="Assets/Scripts/DoorHandler.cs" Line="64" Column="1" />
       <File FileName="Assets/ChestHandler.cs" Line="59" Column="45" />
       <File FileName="Assets/Scripts/DescriptionText.cs" Line="28" Column="1" />
-      <File FileName="Assets/Scripts/MenuCommands.cs" Line="64" Column="60" />
+      <File FileName="Assets/Scripts/MenuCommands.cs" Line="57" Column="32" />
       <File FileName="Assets/Scripts/WaterBehavior.cs" Line="6" Column="2" />
       <File FileName="Assets/Mineable.cs" Line="9" Column="33" />
-      <File FileName="Assets/Scripts/InventoryHandler.cs" Line="20" Column="6" />
+      <File FileName="Assets/Scripts/InventoryHandler.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/UIText.cs" Line="21" Column="76" />
       <File FileName="Assets/Scripts/ItemPickup.cs" Line="43" Column="25" />
       <File FileName="Assets/Scripts/UIVariables.cs" Line="18" Column="9" />
+      <File FileName="Assets/Scripts/AISound.cs" Line="13" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -54,6 +54,12 @@ public class MenuCommands : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void loadLastScene()
+    {
+        Debug.Log("Loading Scene");
+        SceneManager.LoadScene(PlayerPrefs.GetString("LastScene", "Overworld"));
+    }
+
     public void Save()
     {
         // Save Player Position
@@ -74,5 +80,11 @@ public class MenuCommands : MonoBehaviour
         }
         // Player Values
         GameObject.Find("Scene").GetComponent<UIVariables>().SaveAll();
+
+        if (SceneManager.GetActiveScene().name != "Start Scene")
+        {
+            PlayerPrefs.SetString("LastScene", SceneManager.GetActiveScene().name);
+        }
+
     }
 }

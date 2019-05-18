@@ -84,7 +84,6 @@ public class DoorHandler : MonoBehaviour, IInteract
             {
                 if (sceneDoor)
                 {
-                    GameObject.Find("Scene").GetComponent<UIVariables>().SaveAll();
                     GameObject.Find("Scene").GetComponent<MenuCommands>().loadScene(sceneName);
                 }
                 else

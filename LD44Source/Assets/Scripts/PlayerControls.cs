@@ -99,6 +99,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
             }
         }
         SwitchSlots();
+
     }
 
     void Update()

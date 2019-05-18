@@ -169,9 +169,9 @@ Tilemap:
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: 8a8e6bfe85940794aba9e2e1feef91bf, type: 2}
-  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 351e45c0ae807e3438f5b24f10482b53, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 83f42eeb5b8874c15bc391e2b4b86c99, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: bc3d3b5241d6f1a429758f7ccbc4cd5e, type: 2}
   - m_RefCount: 1
@@ -188,8 +188,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 5788b7b651dbd8b47a1653e97a280570, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
-    m_Data: {fileID: -3599981608736371148, guid: 38780e4c93bcb054e8cc62a9d13413d9,
-      type: 3}
+    m_Data: {fileID: 21300000, guid: 6405719b99adb4d7e9fbc29d8e3f3fab, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: f1134359ae6c14e7780fc4ec6635dd36, type: 3}
   - m_RefCount: 1

@@ -26,6 +26,8 @@ public class SimpleAI : MonoBehaviour, IPlayer
     public float attackRange = 10;
     [Tooltip("Make the number larger for larger colliders and smaller for smaller colliders")]
     public float collisionCheckDistance = 0.5f;
+    [Tooltip("Saves whether the AI is dead")]
+    public bool save = true;
     public bool wander;
     public bool followTarget;
     public bool autoJump;
@@ -374,8 +376,11 @@ public class SimpleAI : MonoBehaviour, IPlayer
                 }
             }
         }
+        if (save)
+        {
+            PlayerPrefs.SetString(ID, "True");
+        }
 
-        PlayerPrefs.SetString(ID, "True");
         Destroy(gameObject);
     }
 
