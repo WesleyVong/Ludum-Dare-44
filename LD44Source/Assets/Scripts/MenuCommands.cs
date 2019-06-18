@@ -5,6 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuCommands : MonoBehaviour
 {
+    private void Start()
+    {
+        if (PlayerPrefs.GetString("Music","true") == "true")
+        {
+            GetComponent<AudioSource>().Play();
+        }
+        else
+        {
+            GetComponent<AudioSource>().Stop();
+        }
+    }
     public void Quit()
     {
         try
@@ -21,18 +32,20 @@ public class MenuCommands : MonoBehaviour
     public void Restart()
     {
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Overworld");
     }
 
     public void ToggleMusic()
     {
-        if (GetComponent<AudioSource>().isPlaying)
+        if (PlayerPrefs.GetString("Music") == "false")
         {
-            GetComponent<AudioSource>().Stop();
+            GetComponent<AudioSource>().Play();
+            PlayerPrefs.SetString("Music", "true");
         }
         else
         {
-            GetComponent<AudioSource>().Play();
+            GetComponent<AudioSource>().Stop();
+            PlayerPrefs.SetString("Music", "false");
         }
     }
 
@@ -65,6 +78,8 @@ public class MenuCommands : MonoBehaviour
         // Save Player Position
         PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "-posX", GameObject.FindGameObjectWithTag("Player").transform.position.x);
         PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "-posY", GameObject.FindGameObjectWithTag("Player").transform.position.y);
+
+        Debug.Log(SceneManager.GetActiveScene().name + PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name + "-posX"));
 
         // Save Player Inventory
         int iter = 0;

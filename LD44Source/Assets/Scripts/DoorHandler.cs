@@ -59,8 +59,10 @@ public class DoorHandler : MonoBehaviour, IInteract
     {
         if (withinTrigger)
         {
+            // For Regular Doors
             if (!isOpen)
             {
+                // Needs Key
                 if (needsKey &&
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>().Inventory[GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControls>().selected].tag == keyTag)
                 {
@@ -71,6 +73,7 @@ public class DoorHandler : MonoBehaviour, IInteract
                     }
                     ToggleDoor();
                 }
+                // Doesnt Need key
                 else if (!needsKey)
                 {
                     ToggleDoor();
@@ -80,6 +83,7 @@ public class DoorHandler : MonoBehaviour, IInteract
                     locked.Play();
                 }
             }
+            // For Scene Door
             else
             {
                 if (sceneDoor)
@@ -88,7 +92,7 @@ public class DoorHandler : MonoBehaviour, IInteract
                 }
                 else
                 {
-                    if (otherDoor.GetComponent<DoorHandler>().needsKey && !otherDoor.GetComponent<DoorHandler>().isOpen)
+                    if (!otherDoor.GetComponent<DoorHandler>().isOpen)
                     {
                         otherDoor.GetComponent<DoorHandler>().ToggleDoor();
                     }

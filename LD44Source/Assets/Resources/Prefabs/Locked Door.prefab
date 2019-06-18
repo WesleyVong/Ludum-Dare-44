@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 85803d84a7e0546ef8a0832a84be9881, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,12 +96,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   needsKey: 1
-  isOpen: 0
+  removeKey: 0
+  sceneDoor: 0
+  sceneName: 
   openSprite: {fileID: 21300002, guid: 1a626b5acad33a2478b4614654c56195, type: 3}
   closeSprite: {fileID: 21300000, guid: 1a626b5acad33a2478b4614654c56195, type: 3}
   opening: {fileID: 1124630310005348244}
   locked: {fileID: 1124630310005348247}
   otherDoor: {fileID: 0}
+  ID: 
   keyTag: Key
 --- !u!61 &1124630310005348245
 BoxCollider2D:

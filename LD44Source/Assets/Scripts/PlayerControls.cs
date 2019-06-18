@@ -33,7 +33,8 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public bool autoJump = true;
     public bool invincible;
     public float moveSpeed = 40;
-    public float jumpCooldown = 0.5f;
+    public float jumpStrength = 1000;
+    public float jumpCooldown = 0.1f;
     public float deathLevel = -20f;
 
     public AudioSource audio;
@@ -86,6 +87,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
         sceneName = SceneManager.GetActiveScene().name;
 
         Initialize();
+        transform.position = new Vector2(PlayerPrefs.GetFloat(sceneName + "-posX", 0), PlayerPrefs.GetFloat(sceneName + "-posY", 0));
 
         // Sets up Inventory System
         for (int i = 0; i < Inventory.Length; i++)
@@ -100,6 +102,8 @@ public class PlayerControls : MonoBehaviour, IPlayer
         }
         SwitchSlots();
 
+        Time.timeScale = 1;
+
     }
 
     void Update()
@@ -109,8 +113,11 @@ public class PlayerControls : MonoBehaviour, IPlayer
             Initialize();
             sceneName = SceneManager.GetActiveScene().name;
             transform.position = new Vector2(PlayerPrefs.GetFloat(sceneName + "-posX", 0), PlayerPrefs.GetFloat(sceneName + "-posY", 0));
+            Debug.Log(isPaused);
+            Pause();
         }
 
+        // Change Oxygen Level
         if (inWater)
         {
             UIVar.UIs[4].SetValue((float.Parse(UIVar.UIs[4].GetValue()) - Time.deltaTime * 0.75).ToString());
@@ -252,7 +259,22 @@ public class PlayerControls : MonoBehaviour, IPlayer
             }
             else if ((Input.GetKey(up) || Input.GetKey(upAlt)) && contact && canJump)
             {
-                Jump(1000);
+                // If Wall jump
+                if (
+                 (tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x, GetComponent<Collider2D>().bounds.min.y - 1, 0))) == null &&
+                 tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x, GetComponent<Collider2D>().bounds.min.y + 1, 0))) == null))
+                {
+                    if (facingRight)
+                    {
+                        rb.AddForce(Vector2.left * 400);
+                    }
+                    else
+                    {
+                        rb.AddForce(Vector2.right * 400);
+                    }
+                }
+                Jump(jumpStrength);
+
             }
 
             // Trigger Items in Hand
@@ -362,6 +384,17 @@ public class PlayerControls : MonoBehaviour, IPlayer
         }
         facingRight = !facingRight;
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    // If timer <= 0 or no tile is beneath or above player
+    //    if (
+    //        (tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x, GetComponent<Collider2D>().bounds.min.y - 1, 0))) == null &&
+    //        tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x, GetComponent<Collider2D>().bounds.min.y + 1, 0))) == null))
+    //    {
+    //        canJump = true;
+    //    }
+    //}
 
     private void OnCollisionStay2D(Collision2D collision)
     {

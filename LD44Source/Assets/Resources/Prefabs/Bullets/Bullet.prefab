@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 85803d84a7e0546ef8a0832a84be9881, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   damage: 1
   lifeTime: 1
   facingRight: 1
+  hittableEnemies: 1
 --- !u!50 &4656265495360780887
 Rigidbody2D:
   serializedVersion: 4

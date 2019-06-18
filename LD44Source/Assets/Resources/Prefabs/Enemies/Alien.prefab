@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3605025089880931234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.1882105, y: 14.226131, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7282468800407417800}
@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 85803d84a7e0546ef8a0832a84be9881, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,8 +109,10 @@ MonoBehaviour:
   fireDelay: 0
   jumpCooldown: 0
   health: 10
+  detectRange: 20
   attackRange: 10
-  detectionDistance: 0.5
+  collisionCheckDistance: 0.5
+  save: 1
   wander: 0
   followTarget: 1
   autoJump: 0
@@ -118,6 +120,7 @@ MonoBehaviour:
   attackPlayer: 1
   melee: 0
   trackingWeapon: 0
+  anim: {fileID: 0}
 --- !u!50 &8419428851849457571
 Rigidbody2D:
   serializedVersion: 4

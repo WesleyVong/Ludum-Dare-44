@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 85803d84a7e0546ef8a0832a84be9881, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needsKey: 0
   removeKey: 0
-  isOpen: 1
   sceneDoor: 1
   sceneName: Tutorial Scene
   openSprite: {fileID: 5828505390048373578, guid: acc0b89d1f6ca0b49b794be29deb4c2d,
@@ -108,6 +107,7 @@ MonoBehaviour:
   opening: {fileID: 806350041642540966}
   locked: {fileID: 806350041642540965}
   otherDoor: {fileID: 0}
+  ID: 
   keyTag: Key
 --- !u!82 &806350041642540966
 AudioSource:

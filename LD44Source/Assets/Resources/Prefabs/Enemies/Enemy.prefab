@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 85803d84a7e0546ef8a0832a84be9881, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,8 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIBar: {fileID: 5674889406155201543}
-  drops:
-  - {fileID: 7911649047147711071, guid: bf3a8ebd7aef8f049b827b906851f17c, type: 3}
+  drops: []
   dropPrefab: {fileID: 0}
   target: {fileID: 0}
   onHand: {fileID: 4643453219726019248}
@@ -110,6 +109,7 @@ MonoBehaviour:
   detectRange: 20
   attackRange: 10
   collisionCheckDistance: 0.5
+  save: 1
   wander: 0
   followTarget: 1
   autoJump: 0
