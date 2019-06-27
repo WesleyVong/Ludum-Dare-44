@@ -102,7 +102,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 5
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
@@ -121,6 +121,7 @@ MonoBehaviour:
   right: 100
   left: 97
   up: 119
+  down: 115
   trigger: 32
   interact: 101
   reload: 114
@@ -129,16 +130,20 @@ MonoBehaviour:
   rightAlt: 275
   leftAlt: 276
   upAlt: 273
+  downAlt: 274
   inTrigger: []
   inWater: 0
+  onLadder: 0
   withinShop: 0
   contact: 0
+  isPaused: 0
   autoJump: 1
   invincible: 0
-  moveSpeed: 40
+  moveSpeed: 35
   jumpStrength: 1000
   jumpCooldown: 0.5
   deathLevel: -20
+  startLocation: {x: 0, y: 0}
   audio: {fileID: 5690808524795465499}
   onHand: {fileID: 0}
   selected: 0
@@ -150,8 +155,6 @@ MonoBehaviour:
   - {fileID: 0}
   dropPrefab: {fileID: 7417149897113632416, guid: bc339b916ed901143a45b2546d64511b,
     type: 3}
-  isPaused: 0
-  startLocation: {x: 0, y: 0}
 --- !u!70 &5690808524795465498
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -382,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4813374668995136309
 Transform:
   m_ObjectHideFlags: 0

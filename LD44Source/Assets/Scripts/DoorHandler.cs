@@ -8,6 +8,8 @@ public class DoorHandler : MonoBehaviour, IInteract
     public bool needsKey;
     [Tooltip("Removes key when door opens")]
     public bool removeKey;
+    [Tooltip("Door by default is opened")]
+    public bool opened;
     [Tooltip("If true, brings player to another scene")]
     public bool sceneDoor = false;
     [Tooltip("Scene name (Needed if it is sceneDoor)")]
@@ -31,6 +33,7 @@ public class DoorHandler : MonoBehaviour, IInteract
     {
         sr = GetComponent<SpriteRenderer>();
         ID = transform.position.sqrMagnitude.ToString();
+        if (opened)
         if (PlayerPrefs.GetString(ID,"False") == "True")
         {
             ToggleDoor();
@@ -105,7 +108,10 @@ public class DoorHandler : MonoBehaviour, IInteract
 
     public void ToggleDoor()
     {
-        opening.Play();
+        if (opening != null)
+        {
+            opening.Play();
+        }
         isOpen = !isOpen;
         if (isOpen)
         {

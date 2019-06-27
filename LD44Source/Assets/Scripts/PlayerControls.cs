@@ -8,10 +8,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControls : MonoBehaviour, IPlayer
 {
+    #region Controls
     // Controls
     public KeyCode right = KeyCode.D;
     public KeyCode left = KeyCode.A;
     public KeyCode up = KeyCode.W;
+    public KeyCode down = KeyCode.S;
     public KeyCode trigger = KeyCode.Space;
     public KeyCode interact = KeyCode.E;
     public KeyCode reload = KeyCode.R;
@@ -21,31 +23,42 @@ public class PlayerControls : MonoBehaviour, IPlayer
     public KeyCode rightAlt = KeyCode.RightArrow;
     public KeyCode leftAlt = KeyCode.LeftArrow;
     public KeyCode upAlt = KeyCode.UpArrow;
+    public KeyCode downAlt = KeyCode.DownArrow;
 
-    
+    #endregion
+
     public List<GameObject> inTrigger;
     public bool inWater;
+    public bool onLadder;
     public bool withinShop;
 
-    private Tilemap tilemap;
-
     public bool contact = false;
+    public bool isPaused;
     public bool autoJump = true;
     public bool invincible;
     public float moveSpeed = 40;
     public float jumpStrength = 1000;
     public float jumpCooldown = 0.1f;
     public float deathLevel = -20f;
+    public Vector2 startLocation;
 
     public AudioSource audio;
 
+    #region Inventory System
     // Inventory System
     public GameObject onHand;
     public int selected = 2;
     public GameObject[] Inventory = new GameObject[5];
     public GameObject dropPrefab;
+    #endregion
 
-    public bool isPaused;
+    #region Original Values
+    private float origGravity;
+    private float origDrag;
+    private float origSpeed;
+    #endregion
+
+    private Tilemap tilemap;
 
     private float health;
     private UIVariables UIVar;
@@ -55,22 +68,34 @@ public class PlayerControls : MonoBehaviour, IPlayer
     // By default is facing right
     private bool facingRight = true;
 
-    public Vector2 startLocation;
+    
 
     private float jumpTimer;
 
+    #region Panels
     // Panels
     private GameObject GamePanel;
     private GameObject ShopPanel;
     private GameObject BloodPanel;
     private GameObject GameOverPanel;
     private GameObject MenuPanel;
+    #endregion
 
     // Scene Loading stuff
     private string sceneName;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        // Default without flip is right
+        sr = GetComponent<SpriteRenderer>();
+
+        #region Original Value Assignment
+        origGravity = rb.gravityScale;
+        origDrag = rb.drag;
+        origSpeed = moveSpeed;
+        #endregion
+
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (obj != this.gameObject)
@@ -79,9 +104,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
             }
         }
 
-        rb = GetComponent<Rigidbody2D>();
-        // Default without flip is right
-        sr = GetComponent<SpriteRenderer>();
+        
         SwitchSlots();
 
         sceneName = SceneManager.GetActiveScene().name;
@@ -127,7 +150,21 @@ public class PlayerControls : MonoBehaviour, IPlayer
             UIVar.UIs[4].SetValue((float.Parse(UIVar.UIs[4].GetValue()) + Time.deltaTime * 2).ToString());
         }
 
+        // Ladder Settings
+        if (onLadder)
+        {
+            rb.gravityScale = 0;
+            rb.drag = origDrag * 20;
+            moveSpeed = origSpeed * 4;
+        }
+        else
+        {
+            rb.gravityScale = origGravity;
+            rb.drag = origDrag;
+            moveSpeed = origSpeed;
+        }
 
+        #region Menu Access
         // Access Menu
         if (Input.GetKeyDown(menu))
         {
@@ -169,11 +206,12 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 }
             }
            
-
         }
+        #endregion
 
         if (!isPaused)
         {
+            #region Inventory Selection
             // Inventory Selection
             if ((Input.GetAxis("Mouse ScrollWheel")) != 0 &&
                 (selected + (int)(Input.GetAxis("Mouse ScrollWheel") * 10)) <= 4 &&
@@ -211,7 +249,9 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 selected = 4;
                 SwitchSlots();
             }
+            #endregion
 
+            #region Keys A/D
             // Walking
             if (Input.GetKey(right) || Input.GetKey(rightAlt))
             {
@@ -251,9 +291,22 @@ public class PlayerControls : MonoBehaviour, IPlayer
                     flip();
                 }
             }
+            #endregion
 
+            #region Keys W/S
             // Jump
-            if (inWater && (Input.GetKey(up) || Input.GetKey(upAlt)))
+            if (onLadder)
+            {
+                if (Input.GetKey(up) || Input.GetKey(upAlt))
+                {
+                    rb.AddForce(Vector2.up * 50);
+                }
+                if (Input.GetKey(down) || Input.GetKey(downAlt))
+                {
+                    rb.AddForce(Vector2.down * 50);
+                }
+            }
+            else if (inWater && (Input.GetKey(up) || Input.GetKey(upAlt)))
             {
                 rb.AddForce(Vector2.up * 100);
             }
@@ -276,6 +329,7 @@ public class PlayerControls : MonoBehaviour, IPlayer
                 Jump(jumpStrength);
 
             }
+            #endregion
 
             // Trigger Items in Hand
             if (Input.GetKey(trigger))
@@ -384,17 +438,6 @@ public class PlayerControls : MonoBehaviour, IPlayer
         }
         facingRight = !facingRight;
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    // If timer <= 0 or no tile is beneath or above player
-    //    if (
-    //        (tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x, GetComponent<Collider2D>().bounds.min.y - 1, 0))) == null &&
-    //        tilemap.GetTile(Vector3Int.FloorToInt(new Vector3(GetComponent<Collider2D>().bounds.min.x, GetComponent<Collider2D>().bounds.min.y + 1, 0))) == null))
-    //    {
-    //        canJump = true;
-    //    }
-    //}
 
     private void OnCollisionStay2D(Collision2D collision)
     {
